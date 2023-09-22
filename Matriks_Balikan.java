@@ -1,39 +1,39 @@
-import java.text.DecimalFormat;
-
-import javax.print.event.PrintEvent;
-
 public class Matriks_Balikan {
-
+    /* Rule
+     * 1. Matrix that has inverse is a square Matrix or the size of Row and column should match
+     * 2. Each Row of Matrix Must have the same amount of Column and 
+     * 3. A Matrix Has Inverse if the Determinant of its Matrix isn't 0
+     */
     // static int UNIDENTIFIED = -1; // Used for unidentified value, example: not-found index
-
-    private static void exception(float[][] matrix){ // throw an error if the matrix used has diffrent length of column and row
-        if(matrix[0].length != matrix.length){
+    static int UNIDENTIFIED = -1;
+    private static void exception(float[][] matrix){ // Check whether the Matrix is a Square Matrix 
+        if(matrix[0].length != matrix.length){ 
             System.err.println("The Length of the Column and Row must Same");
             System.exit(0);
         }
-        for(int i = 0; i < matrix.length; i++){
+        for(int i = 0; i < matrix.length; i++){ // Check the length Equality of each Row
             for(int j = i; j < matrix.length;j++){
                 if(matrix[i].length != matrix[j].length){
                     System.err.println("The length of each Row must Same");
                     System.exit(0);
                 }
             }
-        }
-        
-        if(matrix.length != matrix[0].length){
-            System.err.println("This Operation only accept (n x n) matriks");
+        }     
+
+        if(Determinan_Kofakto.determinan_kofaktor(matrix) == 0){ //Check the Determinant of current Matrix
+            System.err.println("The Matrix doesn't have an Inverse");
             System.exit(0);
         }
     }
-    private static void PrintMatrix(float[][] matrix){ // print the matrix
-        for(int i = 0; i < matrix.length; i++){
-            for(int j = 0; j < matrix[i].length; j++){
-                System.out.print(matrix[i][j]+ " ");
-            }
-           System.out.println(); 
-        }
+    // private static void PrintMatrix(float[][] matrix){ // print the matrix
+    //     for(int i = 0; i < matrix.length; i++){
+    //         for(int j = 0; j < matrix[i].length; j++){
+    //             System.out.print(matrix[i][j]+ " ");
+    //         }
+    //        System.out.println(); 
+    //     }
 
-    }
+    // }
 
     private static float[][] MatriksIdentity_Maker(float[][] matrix){ // make a matrixIdentity
         int n = matrix.length;
@@ -51,7 +51,7 @@ public class Matriks_Balikan {
         return matrix_identity;
     }
 
-    private static float[][] Add_MatrixIdentity(float[][] matrix){ // make a matrix combination of current matrix with its matrix identity
+    private static float[][] Add_MatrixIdentity(float[][] matrix){ // make a matrix that combine the current matrix with its matrix identity
         int n = matrix.length;
         float[][] matriks_identity = MatriksIdentity_Maker(matrix);
         float[][] temp = new float[n][n*2];
@@ -68,14 +68,38 @@ public class Matriks_Balikan {
         return temp;
     }
 
-    // private static void Swapping_Operation(float[][] matrix, int row_will_be_changed, int row_who_changed){ // swap between the row_will_be_changed and row_who_changed
-    //     float[][] temp = new float[1][matrix[0].length];
-    //     for(int i = 0; i < matrix[0].length;i++){
-    //          temp[0][i] = matrix[row_who_changed][i];
-    //          matrix[row_who_changed][i] = matrix[row_will_be_changed][i];
-    //          matrix[row_will_be_changed][i] = temp[0][i];
-    //     }
-    // }
+    private static int zeroCounter(float[][] matrix, int row){ // Count the Amount of Zero in the left of matrix[row], this will be used in the Swapping Operation
+        int sum = 0;
+        for(int i = 0; i < matrix[row].length; i++){
+            if(matrix[row][i] == 0){
+                sum++;
+            }
+            else{
+                return sum;
+            }
+        }
+        return sum;
+    }
+
+    private static void swapping_Operation(float[][] matrix){ // Calculate the Logic Behind The Swapping of 2 Rows
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = matrix.length; j >= i; j--){
+                if(zeroCounter(matrix, i) > zeroCounter(matrix, j)){
+                    matrix_Swapping(matrix, i, j);
+                }
+            }
+            
+        }
+    }
+
+    private static void matrix_Swapping(float[][] matrix, int row_will_be_changed, int row_who_changed){ // swap between the Matrix[row_will_be_changed] and Matrix[row_who_changed]
+        float[][] temp = new float[1][matrix[0].length];
+        for(int i = 0; i < matrix[0].length;i++){
+             temp[0][i] = matrix[row_who_changed][i];
+             matrix[row_who_changed][i] = matrix[row_will_be_changed][i];
+             matrix[row_will_be_changed][i] = temp[0][i];
+        }
+    }
 
     private static void Multipy_Operation(float[][] matrix, int row_will_be_changed, int column_will_be_changed){ // multiply the desired row_will_be_changed and column_will_be_changed so the result is 1
         float x = 1/matrix[row_will_be_changed][column_will_be_changed];
@@ -84,14 +108,14 @@ public class Matriks_Balikan {
         } 
     }
 
-    private static void Reduce_Operation(float[][] matrix, int row_will_be_changed,int column_will_be_changed, int row_who_changed){
+    private static void Reduce_Operation(float[][] matrix, int row_will_be_changed,int column_will_be_changed, int row_who_changed){ // Reduce the selected Matrix[row_will_be_changed][column_will_be_changed] into 0 and apply it to the rest of the Column
         float x =  matrix[row_will_be_changed][column_will_be_changed]/matrix[row_who_changed][column_will_be_changed];
         for(int i = 0; i < matrix[0].length; i++){
             matrix[row_will_be_changed][i] -= (x*matrix[row_who_changed][i]);
         }
     }
 
-    private static void negative_0_handler(float[][] matriks){
+    private static void negative_0_handler(float[][] matriks){ // Handling the -0.0 if the value is printed
         for(int i = 0; i < matriks.length; i++){
             for(int j = 0; j < matriks[i].length; j++){
                 if(matriks[i][j] == (float) 0.0){
@@ -101,18 +125,11 @@ public class Matriks_Balikan {
         }
     }
 
-    // private static int find_index_value_1(float[][] matrix, int row_order){
-    //     for(int i = 0; i< matrix.length/2; i++){
-    //         if(matrix[i][row_order] == 1){
-    //             return i;
-    //         }
-    //     }
-    //     return UNIDENTIFIED;
-    // }
-
-    private static float[][] Gauss_Operation(float[][] matrix){
+    private static float[][] Gauss_Operation(float[][] matrix){ // Do Gauss - Jordan Operation to change the current matrix into matrix identity
         float[][] matrix_inverted = Add_MatrixIdentity(matrix);
+
         for(int i = 0; i < matrix_inverted.length; i++){
+            swapping_Operation(matrix_inverted);
             Multipy_Operation(matrix_inverted, i, i);
             for(int j = 0; j < matrix_inverted.length;j++){
                 if(j != i){
@@ -126,7 +143,7 @@ public class Matriks_Balikan {
         return matrix_inverted;
     }
 
-    private static float[][] perkalian_Matriks(float[][] matriks1, float[][] matriks2){
+    private static float[][] perkalian_Matriks(float[][] matriks1, float[][] matriks2){ // Do matriks1 * matriks2 for SPL Purposes
         float[][] matriks_copy = new float[matriks1.length][matriks2[0].length]; 
         for(int i = 0 ; i < matriks1.length; i++){
             for(int j = 0; j < matriks2.length;j++){
@@ -137,7 +154,7 @@ public class Matriks_Balikan {
         }
         return matriks_copy;
     }
-    public static void Inverse_Matriks(float[][] matrix){
+    public static void Inverse_Matriks(float[][] matrix){ // The Main Function of Turning a Matrix into inverted Matrix
         exception(matrix);
         float[][] matriks_inverted = Gauss_Operation(matrix);
         int end_row = matriks_inverted.length;
@@ -154,12 +171,13 @@ public class Matriks_Balikan {
     }
 
     
-    public static void SPL_From_Inverse(float[][] matrix_input){
+    public static void SPL_From_Inverse(float[][] matrix_input){ // The Main function of getting SPL result from AX = B, X = A^-1 * B 
         float[][] matriks_A = new float[matrix_input.length][matrix_input[0].length -1];
-        float[][] matriks_B = new float[matriks_input.length][1];
+        float[][] matriks_B = new float[matrix_input.length][1];
 
-        int row_length = matriks_input.length-1;
-        int col_length = matriks_input[0].length;
+        int row_length = matrix_input.length-1;
+        int col_length = matrix_input[0].length;
+
         // Matriks for A
         for(int i = 0; i < col_length; i++){
             for(int j = 0; j < col_length;j++){
@@ -169,7 +187,7 @@ public class Matriks_Balikan {
 
         // Matriks for B
         for(int i = 0; i < col_length; i++){
-            matriks_B[i][0] = matriks_input[i][row_length+1];
+            matriks_B[i][0] = matrix_input[i][row_length+1];
         }
 
         // Inverse Matriks A
@@ -180,17 +198,4 @@ public class Matriks_Balikan {
 
 
     }
-
-    
-    public static void main(String[] args){
-        final float[][] matrix = {
-            {5,7,9},{4,3,8},{7,5,6}
-         };
-        final float[][] matriks2 = {
-            {1},{1},{1},
-        };
-        PrintMatrix(perkalian_Matriks(matrix, matriks2));
-       
-    }
-
 }
