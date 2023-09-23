@@ -22,3 +22,25 @@ The code describe as this
 
 ~ Step3 ~
 9. Calculate the determinant by multiplie 1 with all the element of main diagonal.
+
+
+int determinan_kofaktor.
+
+Param:
+- float with 2D array, Matrix
+
+The code describe as this
+
+~ Pre-Calculation ~
+
+Rule : Determinant only accept a square matrix
+1. if the length of Matrix is 0, the determinant is 0
+2. if the length of matrix is 1, the determinant is the first element
+3. if the length of matrix is 2, the determinant is the (a * d) - (b * c), a = m[0][0], b = m[0][1], c = m[1][0], d = m[1][1]
+4. The calculation will use the first rows of the matrix
+5. The formula will be cij * mij * (-1)^2+i, i = the current index
+
+~ Calculation ~
+1. Iterate from 0 to the height of the matrix
+2. create a temporary matrix that has the dimension of m-1 x m-1
+3. 
