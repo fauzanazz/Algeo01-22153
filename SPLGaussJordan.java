@@ -3,14 +3,10 @@ public class SPLGaussJordan{
         SPLGaussJordanFromMatrix(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"));
     }
 
-    public static void SPLGaussJordanFromMatrix(float[][] matrix){
+    public static void SPLGaussJordanFromMatrix(double[][] matrix){
         double[][] m = new double[matrix.length][matrix[0].length];
-        for (int i=0; i<matrix.length; i++){
-            for (int j=0; j<matrix[i].length; j++){
-                m[i][j] = matrix[i][j];
-            }
-        }
-        m = SwapLess0(m);
+
+        m = SwapLess0(matrix);
         m = OBE(m);
         SPLSolution(m);
     }

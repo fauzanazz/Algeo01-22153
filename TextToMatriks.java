@@ -1,14 +1,13 @@
-
 import java.io.File;  // Import the File class
 import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 
 public class TextToMatriks {
     public static void main (String[] args){
-        float[][] matriks = readMatrixFromFile("Algeo/filename.txt");
+        double[][] matriks = readMatrixFromFile("Algeo/filename.txt");
         printMatrix(matriks);
     }
-    private static float[][] getMatrixFromText(String text){
+    private static double[][] getMatrixFromText(String text){
         // Get row & column
         int m = 0, n = 1;
         for (char x: text.toCharArray()) {
@@ -17,7 +16,7 @@ public class TextToMatriks {
         }
         
         // Create Empty Matrix & initiate variable
-        float[][] matrix = new float[m][n];
+        double[][] matrix = new double[m][n];
         int i = 0, j = 0;
         String temp = "";
 
@@ -56,7 +55,7 @@ public class TextToMatriks {
         return matrix;
     }
 
-    public static void printMatrix(float[][] matrix){
+    public static void printMatrix(double[][] matrix){
         int i,j;
         for (i=0; i<matrix.length; i++) {
             for (j=0; j<matrix[i].length; j++){
@@ -66,7 +65,7 @@ public class TextToMatriks {
         }
     }
 
-    public static float[][] readMatrixFromFile(String path) {
+    public static double[][] readMatrixFromFile(String path) {
         String text = "";
         try {
             File f = new File(path);
