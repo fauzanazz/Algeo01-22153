@@ -1,8 +1,4 @@
 public class SPLGaussJordan{
-    public static void main(String[] args){
-        SPLGaussJordanFromMatrix(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"));
-    }
-
     public static void SPLGaussJordanFromMatrix(double[][] matrix){
         double[][] m = new double[matrix.length][matrix[0].length];
 
