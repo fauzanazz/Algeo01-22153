@@ -32,16 +32,16 @@ public class TextToMatriks {
                         temp1 += temp.charAt(k);
                     }
                     // System.out.println(temp1);
-                    matrix[i][j] = Float.parseFloat(temp1);
+                    matrix[i][j] = Double.parseDouble(temp1);
                     temp1 = "";
                     for(k= k+1; k<temp.length(); k++){
                         temp1 += temp.charAt(k);
                     }
                     // System.out.println(temp1);
-                    matrix[i][j] /= Float.parseFloat(temp1);
+                    matrix[i][j] /= Double.parseDouble(temp1);
 
                 } else {
-                    matrix[i][j] = Float.parseFloat(temp);
+                    matrix[i][j] = Double.parseDouble(temp);
                 }
                 j++;
                 temp = "";
