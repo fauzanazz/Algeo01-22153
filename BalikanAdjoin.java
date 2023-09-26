@@ -1,10 +1,6 @@
 import java.lang.Math;
 
 public class BalikanAdjoin{
-    public static void main(String[] args){
-        TextToMatriks.printMatrix(TextToMatriks.readMatrixFromFile("filename.txt"));
-        getInverseFromAdjoin(TextToMatriks.readMatrixFromFile("filename.txt"));
-    }
     public static double[][] getInverseFromAdjoin(double[][] matriks){
         double det = determinant(matriks);
         if (det == 0) {
