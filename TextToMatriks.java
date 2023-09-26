@@ -3,10 +3,6 @@ import java.io.FileNotFoundException;  // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 
 public class TextToMatriks {
-    public static void main (String[] args){
-        double[][] matriks = readMatrixFromFile("Algeo/filename.txt");
-        printMatrix(matriks);
-    }
     private static double[][] getMatrixFromText(String text){
         // Get row & column
         int m = 0, n = 1;
