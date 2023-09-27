@@ -1,10 +1,34 @@
 import java.lang.Math;
 
 public class BalikanAdjoin{
+
+    public static String getInverseFromAdjoinOutput(double[][] matriks){
+        double[][] s = getInverseFromAdjoin(matriks);
+        if (s[0][0] == 0 && s.length == 1){
+            return sOut;
+        }
+
+        sOut = "";
+        for (int i=0; i<s.length; i++){
+            for (int j=0; j<s[i].length; j++){
+                sOut += s[i][j];
+                if (j != s[0].length -1) sOut += " ";
+            }
+            if (i != s.length -1) sOut += "\n";
+        }
+        return sOut;
+    }
+
+    private static String sOut = "";
+
     public static double[][] getInverseFromAdjoin(double[][] matriks){
-        double det = determinant(matriks);
+        double det = Determinan_Kofaktor.determinan_kofaktor(matriks);
         if (det == 0) {
-            System.out.println("Matriks memiliki balikan jika dan hanya jika nilai determinan matriks tidak sama dengan 0!");
+            sOut += ("Matriks memiliki balikan jika dan hanya jika nilai determinan matriks tidak sama dengan 0!");
+            return new double[1][1]; 
+        }
+        if (matriks.length != matriks[0].length) {
+            sOut += ("Matriks yang diinput bukan merupakan matriks persegi!");
             return new double[1][1]; 
         }
         matriks = getKofaktor(matriks);
@@ -14,7 +38,6 @@ public class BalikanAdjoin{
                 matriks[i][j] *= (1/det);
             }
         }
-        TextToMatriks.printMatrix(matriks);
         return matriks;
     }
 
@@ -44,32 +67,9 @@ public class BalikanAdjoin{
                 }
             }
         }
-        return determinant(temp_matriks);
+        return Determinan_Kofaktor.determinan_kofaktor(temp_matriks);
     }
-    private static double determinant(double[][] m){
-        if (m.length == 0) return (0);
-        if (m.length == 1) return (m[0][0]);
-        if (m.length == 2) return (m[0][0]*m[1][1]) - (m[0][1]*m[1][0]);
 
-        int i,j,k,l;
-        double det=0;
-        for (i=0; i<m.length; i++){
-            double[][] mtemp = new double[m.length-1][m[0].length-1];
-            for(j=0; j<mtemp.length; j++){
-                l = 0;
-                for(k=0; k<m[0].length; k++){
-                    if(k != i){
-                        mtemp[j][l] = m[j+1][k];
-                        l++;
-                    }
-                }
-            }
-
-            det += (m[0][i])*(Math.pow(-1,i))*determinant(mtemp);
-        }
-
-        return det;
-    }
     private static double[][] getTranspose(double[][] matriks){
         double[][] matriks_transpose= new double[matriks.length][matriks[0].length];
         for (int i = 0; i<matriks.length; i++){

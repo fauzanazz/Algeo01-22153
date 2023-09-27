@@ -1,13 +1,24 @@
 public class Determinan {
+
+    private static String sOut = "";
+
+    public static String getDeterminanNxNOutput (double[][] matriks){
+        double s = DeterminanNxN(matriks);
+        if (s != 0){
+            sOut = String.valueOf(s);
+        }
+        return sOut;
+    }
+
     public static double DeterminanNxN(double[][] matriks){
         int m = matriks.length;
         double det = 0;
         if (m != matriks[0].length){
-            System.err.println("Matriks yang diinput bukan merupakan matriks persegi!");
+            sOut +=("Matriks yang diinput bukan merupakan matriks persegi!");
             return 0;
         }
         if (m != 2 && m != 3){
-            System.err.println("Matriks yang diinput bukan merupakan matriks 2x2 atau 3x3!");
+            sOut+=("Matriks yang diinput bukan merupakan matriks 2x2 atau 3x3!");
             return 0;
         }
         if (m==2){
