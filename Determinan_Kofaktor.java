@@ -1,7 +1,7 @@
 
 public class Determinan_Kofaktor{
     
-    static float determinan_kofaktor(float[][] m){
+    static double determinan_kofaktor(double[][] m){
         if(m.length == 0){
             return 0;
         }
@@ -12,10 +12,10 @@ public class Determinan_Kofaktor{
             return (m[0][0] * m[1][1]) - (m[0][1] *m[1][0]);
         }
 
-        float result = 0;
+        double result = 0;
         int l;
         for(int i = 0; i < m.length; i++){
-            float[][] temp = new float[m.length-1][m[i].length-1];
+            double[][] temp = new double[m.length-1][m[i].length-1];
             for(int j = 0; j < temp.length ; j++){
                 l = 0;
                 for(int k = 0; k < m[i].length;k++){
@@ -32,8 +32,5 @@ public class Determinan_Kofaktor{
         return result;
     }
 
-    public static void main(String[] args){
-        float[][] matriks = {{21,12,3,0},{81,52,13,42},{3,2,51,42},{11,23,53,53}};
-        System.out.println(determinan_kofaktor(matriks));
-    }
+    
 }
