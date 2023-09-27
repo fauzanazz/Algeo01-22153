@@ -72,7 +72,7 @@ public class Matriks_Balikan {
         return sum;
     }
 
-    private static void swapping_Operation(double[][] matrix){ // Calculate the Logic Behind The Swapping of 2 Rows
+    private static void swapping_Operation(double[][] matrix){ // Swap 2 rows if one row have more 0 before the leading 1 than the other row
         for(int i = 0; i < matrix.length; i++){
             for(int j = matrix.length; j >= i; j--){
                 if(zeroCounter(matrix, i) > zeroCounter(matrix, j)){
@@ -96,6 +96,9 @@ public class Matriks_Balikan {
         double x = 1/matrix[row_will_be_changed][column_will_be_changed];
         for(int i = 0; i < matrix[0].length;i++){
             matrix[row_will_be_changed][i] *= x;
+            if(matrix[row_will_be_changed][i] == -0.0){ //for -0.0 output
+                    matrix[row_will_be_changed][i] = Math.abs(matrix[row_will_be_changed][i]);
+            }
         } 
     }
 
@@ -103,34 +106,23 @@ public class Matriks_Balikan {
         double x =  matrix[row_will_be_changed][column_will_be_changed]/matrix[row_who_changed][column_will_be_changed];
         for(int i = 0; i < matrix[0].length; i++){
             matrix[row_will_be_changed][i] -= (x*matrix[row_who_changed][i]);
+            if(matrix[row_will_be_changed][i] == -0.0){ //for -0.0 output
+                    matrix[row_will_be_changed][i] = Math.abs(matrix[row_will_be_changed][i]);
+            }
         }
     }
-
-    private static void negative_0_handler(double[][] matriks){ // Handling the -0.0 if the value is printed
-        for(int i = 0; i < matriks.length; i++){
-            for(int j = 0; j < matriks[i].length; j++){
-                if(matriks[i][j] == (double) 0.0){
-                    matriks[i][j] = Math.abs(matriks[i][j]);
-                }
-            }   
-        }
-    }
-
     private static double[][] Gauss_Operation(double[][] matrix){ // Do Gauss - Jordan Operation to change the current matrix into matrix identity
         double[][] matrix_inverted = Add_MatrixIdentity(matrix);
 
         for(int i = 0; i < matrix_inverted.length; i++){
-            swapping_Operation(matrix_inverted);
-            Multipy_Operation(matrix_inverted, i, i);
+            swapping_Operation(matrix_inverted); 
+            Multipy_Operation(matrix_inverted, i, i); //Multiply matriks_inverted[i][column] into 1, and applied the calculation to the rest of its column
             for(int j = 0; j < matrix_inverted.length;j++){
                 if(j != i){
-                    Reduce_Operation(matrix_inverted, j, i, i);
+                    Reduce_Operation(matrix_inverted, j, i, i); //Reducing matriks[j][i] into 0, and applied to the rest of its column
                 }
             }
         }  
-
-        negative_0_handler(matrix_inverted);
-
         return matrix_inverted;
     }
 
@@ -146,8 +138,8 @@ public class Matriks_Balikan {
         return matriks_copy;
     }
     public static void Inverse_Matriks(double[][] matrix){ // The Main Function of Turning a Matrix into inverted Matrix
-        exception(matrix);
-        double[][] matriks_inverted = Gauss_Operation(matrix);
+        exception(matrix); //Check for any exception
+        double[][] matriks_inverted = Gauss_Operation(matrix); //Do Gauss-Jordan Operation
         int end_row = matriks_inverted.length;
         int start_col = (matriks_inverted[0].length)/2;
         int end_col = matriks_inverted[0].length;
@@ -163,8 +155,8 @@ public class Matriks_Balikan {
 
     
     public static void SPL_From_Inverse(double[][] matrix_input){ // The Main function of getting SPL result from AX = B, X = A^-1 * B 
-        double[][] matriks_A = new double[matrix_input.length][matrix_input[0].length -1];
-        double[][] matriks_B = new double[matrix_input.length][1];
+        double[][] matriks_A = new double[matrix_input.length][matrix_input[0].length -1]; //Make the non-Augmented Matriks
+        double[][] matriks_B = new double[matrix_input.length][1]; //The Last Row
 
         int row_length = matrix_input.length-1;
         int col_length = matrix_input[0].length;
@@ -186,7 +178,5 @@ public class Matriks_Balikan {
 
         // A * X = B, X  = Inverse(A) * B
         matriks_B = perkalian_Matriks(matriks_A, matriks_B);
-
-
     }
 }
