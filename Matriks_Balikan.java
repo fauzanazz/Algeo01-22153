@@ -6,7 +6,7 @@ public class Matriks_Balikan {
      */
     // static int UNIDENTIFIED = -1; // Used for unidentified value, example: not-found index
     static int UNIDENTIFIED = -1;
-    private static void exception(float[][] matrix){ // Check whether the Matrix is a Square Matrix 
+    private static void exception(double[][] matrix){ // Check whether the Matrix is a Square Matrix 
         if(matrix[0].length != matrix.length){ 
             System.err.println("The Length of the Column and Row must Same");
             System.exit(0);
@@ -25,19 +25,10 @@ public class Matriks_Balikan {
             System.exit(0);
         }
     }
-    // private static void PrintMatrix(float[][] matrix){ // print the matrix
-    //     for(int i = 0; i < matrix.length; i++){
-    //         for(int j = 0; j < matrix[i].length; j++){
-    //             System.out.print(matrix[i][j]+ " ");
-    //         }
-    //        System.out.println(); 
-    //     }
 
-    // }
-
-    private static float[][] MatriksIdentity_Maker(float[][] matrix){ // make a matrixIdentity
+    private static double[][] MatriksIdentity_Maker(double[][] matrix){ // make a matrixIdentity
         int n = matrix.length;
-        float[][] matrix_identity = new float[n][n];
+        double[][] matrix_identity = new double[n][n];
         for(int i = 0; i < n ; i++){
             for(int j = 0; j < n; j++){
                 if(i == j){
@@ -51,10 +42,10 @@ public class Matriks_Balikan {
         return matrix_identity;
     }
 
-    private static float[][] Add_MatrixIdentity(float[][] matrix){ // make a matrix that combine the current matrix with its matrix identity
+    private static double[][] Add_MatrixIdentity(double[][] matrix){ // make a matrix that combine the current matrix with its matrix identity
         int n = matrix.length;
-        float[][] matriks_identity = MatriksIdentity_Maker(matrix);
-        float[][] temp = new float[n][n*2];
+        double[][] matriks_identity = MatriksIdentity_Maker(matrix);
+        double[][] temp = new double[n][n*2];
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n;j++){
                 temp[i][j] = matrix[i][j];
@@ -68,7 +59,7 @@ public class Matriks_Balikan {
         return temp;
     }
 
-    private static int zeroCounter(float[][] matrix, int row){ // Count the Amount of Zero in the left of matrix[row], this will be used in the Swapping Operation
+    private static int zeroCounter(double[][] matrix, int row){ // Count the Amount of Zero in the left of matrix[row], this will be used in the Swapping Operation
         int sum = 0;
         for(int i = 0; i < matrix[row].length; i++){
             if(matrix[row][i] == 0){
@@ -81,7 +72,7 @@ public class Matriks_Balikan {
         return sum;
     }
 
-    private static void swapping_Operation(float[][] matrix){ // Calculate the Logic Behind The Swapping of 2 Rows
+    private static void swapping_Operation(double[][] matrix){ // Calculate the Logic Behind The Swapping of 2 Rows
         for(int i = 0; i < matrix.length; i++){
             for(int j = matrix.length; j >= i; j--){
                 if(zeroCounter(matrix, i) > zeroCounter(matrix, j)){
@@ -92,8 +83,8 @@ public class Matriks_Balikan {
         }
     }
 
-    private static void matrix_Swapping(float[][] matrix, int row_will_be_changed, int row_who_changed){ // swap between the Matrix[row_will_be_changed] and Matrix[row_who_changed]
-        float[][] temp = new float[1][matrix[0].length];
+    private static void matrix_Swapping(double[][] matrix, int row_will_be_changed, int row_who_changed){ // swap between the Matrix[row_will_be_changed] and Matrix[row_who_changed]
+        double[][] temp = new double[1][matrix[0].length];
         for(int i = 0; i < matrix[0].length;i++){
              temp[0][i] = matrix[row_who_changed][i];
              matrix[row_who_changed][i] = matrix[row_will_be_changed][i];
@@ -101,32 +92,32 @@ public class Matriks_Balikan {
         }
     }
 
-    private static void Multipy_Operation(float[][] matrix, int row_will_be_changed, int column_will_be_changed){ // multiply the desired row_will_be_changed and column_will_be_changed so the result is 1
-        float x = 1/matrix[row_will_be_changed][column_will_be_changed];
+    private static void Multipy_Operation(double[][] matrix, int row_will_be_changed, int column_will_be_changed){ // multiply the desired row_will_be_changed and column_will_be_changed so the result is 1
+        double x = 1/matrix[row_will_be_changed][column_will_be_changed];
         for(int i = 0; i < matrix[0].length;i++){
             matrix[row_will_be_changed][i] *= x;
         } 
     }
 
-    private static void Reduce_Operation(float[][] matrix, int row_will_be_changed,int column_will_be_changed, int row_who_changed){ // Reduce the selected Matrix[row_will_be_changed][column_will_be_changed] into 0 and apply it to the rest of the Column
-        float x =  matrix[row_will_be_changed][column_will_be_changed]/matrix[row_who_changed][column_will_be_changed];
+    private static void Reduce_Operation(double[][] matrix, int row_will_be_changed,int column_will_be_changed, int row_who_changed){ // Reduce the selected Matrix[row_will_be_changed][column_will_be_changed] into 0 and apply it to the rest of the Column
+        double x =  matrix[row_will_be_changed][column_will_be_changed]/matrix[row_who_changed][column_will_be_changed];
         for(int i = 0; i < matrix[0].length; i++){
             matrix[row_will_be_changed][i] -= (x*matrix[row_who_changed][i]);
         }
     }
 
-    private static void negative_0_handler(float[][] matriks){ // Handling the -0.0 if the value is printed
+    private static void negative_0_handler(double[][] matriks){ // Handling the -0.0 if the value is printed
         for(int i = 0; i < matriks.length; i++){
             for(int j = 0; j < matriks[i].length; j++){
-                if(matriks[i][j] == (float) 0.0){
+                if(matriks[i][j] == (double) 0.0){
                     matriks[i][j] = Math.abs(matriks[i][j]);
                 }
             }   
         }
     }
 
-    private static float[][] Gauss_Operation(float[][] matrix){ // Do Gauss - Jordan Operation to change the current matrix into matrix identity
-        float[][] matrix_inverted = Add_MatrixIdentity(matrix);
+    private static double[][] Gauss_Operation(double[][] matrix){ // Do Gauss - Jordan Operation to change the current matrix into matrix identity
+        double[][] matrix_inverted = Add_MatrixIdentity(matrix);
 
         for(int i = 0; i < matrix_inverted.length; i++){
             swapping_Operation(matrix_inverted);
@@ -143,8 +134,8 @@ public class Matriks_Balikan {
         return matrix_inverted;
     }
 
-    private static float[][] perkalian_Matriks(float[][] matriks1, float[][] matriks2){ // Do matriks1 * matriks2 for SPL Purposes
-        float[][] matriks_copy = new float[matriks1.length][matriks2[0].length]; 
+    private static double[][] perkalian_Matriks(double[][] matriks1, double[][] matriks2){ // Do matriks1 * matriks2 for SPL Purposes
+        double[][] matriks_copy = new double[matriks1.length][matriks2[0].length]; 
         for(int i = 0 ; i < matriks1.length; i++){
             for(int j = 0; j < matriks2.length;j++){
                 for(int k = 0; k < matriks2[0].length;k++){
@@ -154,9 +145,9 @@ public class Matriks_Balikan {
         }
         return matriks_copy;
     }
-    public static void Inverse_Matriks(float[][] matrix){ // The Main Function of Turning a Matrix into inverted Matrix
+    public static void Inverse_Matriks(double[][] matrix){ // The Main Function of Turning a Matrix into inverted Matrix
         exception(matrix);
-        float[][] matriks_inverted = Gauss_Operation(matrix);
+        double[][] matriks_inverted = Gauss_Operation(matrix);
         int end_row = matriks_inverted.length;
         int start_col = (matriks_inverted[0].length)/2;
         int end_col = matriks_inverted[0].length;
@@ -171,9 +162,9 @@ public class Matriks_Balikan {
     }
 
     
-    public static void SPL_From_Inverse(float[][] matrix_input){ // The Main function of getting SPL result from AX = B, X = A^-1 * B 
-        float[][] matriks_A = new float[matrix_input.length][matrix_input[0].length -1];
-        float[][] matriks_B = new float[matrix_input.length][1];
+    public static void SPL_From_Inverse(double[][] matrix_input){ // The Main function of getting SPL result from AX = B, X = A^-1 * B 
+        double[][] matriks_A = new double[matrix_input.length][matrix_input[0].length -1];
+        double[][] matriks_B = new double[matrix_input.length][1];
 
         int row_length = matrix_input.length-1;
         int col_length = matrix_input[0].length;
