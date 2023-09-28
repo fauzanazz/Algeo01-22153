@@ -1,6 +1,7 @@
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\SPLMetodeEliminasiGaussJordan.java
+D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\Fungsi\InterpolasiBicubicSpline.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\Input.java
-D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\Fungsi\inverse.java
+D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\Fungsi\Inverse.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\SPLMetodeEliminasiGauss.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\DETDeterminandenganKofaktor.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\Fungsi\Determinan.java
@@ -9,6 +10,7 @@ D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\INV
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\InputMatriksKeyboard.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\InterpolasiBicubicSpline.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\INVMatriksinversedenganAdjoin.java
+D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\Fungsi\InterpolasiPolinom.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\Fungsi\SPL.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\SPLKaidahCramer.java
 D:\VsCode\Java\Algeo01-22153\AlgeoTubes\src\main\java\besokminggu\algeotubes\Invers.java

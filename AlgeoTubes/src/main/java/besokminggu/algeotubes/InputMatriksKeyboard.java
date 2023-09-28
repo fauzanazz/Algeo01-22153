@@ -7,8 +7,11 @@ package besokminggu.algeotubes;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -20,40 +23,78 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
     /**
      * Creates new form InputMatriksKeyboard
      */
+    int nMatrix = AlgeoTubes.n;
+    int mMatrix = AlgeoTubes.m;
+    private JTextField[][] newTextFields;
+    
+    
     public InputMatriksKeyboard() {
         initComponents();
-        int nMatrix = AlgeoTubes.n;
-        int mMatrix = AlgeoTubes.m;
+        
+        String mMat = String.valueOf(mMatrix);
+        String nMat = String.valueOf(nMatrix);
+        jLabel2.setText(nMat);
+        jLabel4.setText(mMat);
+        
         jPanel1.setPreferredSize(new Dimension(368, 320));
         jPanel1.setMinimumSize(new Dimension(200, 200));
         jPanel1.setMaximumSize(new Dimension(368,320));
         // Create a JPanel to hold the matrix input fields.
         jPanel1.setLayout(new GridLayout(nMatrix, mMatrix));
 
+        // Create a JTextField for each element in the matrix.
+        newTextFields = new JTextField[nMatrix][mMatrix];
+        for (int i = 0; i < nMatrix; i++) {
+            for (int j = 0; j < mMatrix; j++) {
+                newTextFields[i][j] = new JTextField();
+                jPanel1.add(newTextFields[i][j]);
+            }
+        }
+        
         jButton3.addActionListener((ActionEvent e) -> {
             // Add a new row to the matrix input.
-            JTextField[] newRow = new JTextField[3];
-            for (int i = 0; i < 3; i++) {
-                newRow[i] = new JTextField();
-                jPanel1.add(newRow[i]);
+            newTextFields = new JTextField[nMatrix+1][mMatrix+1];
+            for (int i = 0; i < nMatrix+1; i++) {
+                for (int j = 0; j < mMatrix+1; j++) {
+                    newTextFields[i][j] = new JTextField();
+                    
+                }
+            }
+            jPanel1.removeAll();
+            for (int i = 0; i < nMatrix+1; i++) {
+                for (int j = 0; j < mMatrix+1; j++) {
+                    jPanel1.add(newTextFields[i][j]);
+                }
+            }
+            // Update the GridLayout to include the new row.
+            jPanel1.setLayout(new GridLayout(nMatrix+1, nMatrix+1));
+            jPanel1.repaint();
+            jPanel1.updateUI();
+            
+        });
+        
+        jButton2.addActionListener((ActionEvent e) -> {
+            // Create a new 2D array with the selected row and column removed.
+            newTextFields = new JTextField[nMatrix - 1][mMatrix - 1];
+            for (int i = 0; i < nMatrix-1; i++) {
+                for (int j = 0; j < mMatrix-1; j++) {
+                    newTextFields[i][j] = new JTextField();
+                }
             }
             
+            jPanel1.removeAll();
+            for (int i = 0; i < nMatrix-1; i++) {
+                for (int j = 0; j < mMatrix-1; j++) {
+                    jPanel1.add(newTextFields[i][j]);
+                }
+            }
+
             // Update the GridLayout to include the new row.
-            jPanel1.setLayout(new GridLayout(jPanel1.getComponentCount() / 3, 3));
+            jPanel1.setLayout(new GridLayout(nMatrix-1, mMatrix-1));
             jPanel1.repaint();
             jPanel1.updateUI();
         });
         
-        
-        
-        // Create a JTextField for each element in the matrix.
-        JTextField[][] textFields = new JTextField[nMatrix][mMatrix];
-        for (int i = 0; i < nMatrix; i++) {
-            for (int j = 0; j < mMatrix; j++) {
-                textFields[i][j] = new JTextField();
-                jPanel1.add(textFields[i][j]);
-            }
-        }
     }
     
     /**
@@ -71,6 +112,11 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("JFrame");
@@ -96,8 +142,9 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(103, 76, -1, -1));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Masukkan Matriks");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(233, 42, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, -1, -1));
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -108,6 +155,11 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 500, -1, -1));
 
         jButton2.setText("-");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, 170, -1));
 
         jButton3.setText("+");
@@ -118,11 +170,31 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
         });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 159, -1));
 
+        jLabel2.setText("M");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, -1, -1));
+
+        jButton4.setText("Back");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 530, -1, -1));
+
+        jLabel3.setText("X");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, -1, -1));
+
+        jLabel4.setText("N");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 410, -1, -1));
+
+        jLabel5.setText("jLabel5");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 793, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,12 +207,49 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        AlgeoTubes.matriksinput = getTextfieldTodoubleMatrix(newTextFields);
+        doubleToStringMatrix(AlgeoTubes.matriksinput);
+        afterInput();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public static void doubleToStringMatrix(double[][] doubleMatrix) {
+        String[][] stringMatrix = new String[doubleMatrix.length][doubleMatrix[0].length];
+        for (int i = 0; i < doubleMatrix.length; i++) {
+          for (int j = 0; j < doubleMatrix[0].length; j++) {
+            stringMatrix[i][j] = String.valueOf(doubleMatrix[i][j]);
+          }
+        }
+        
+        for (int i = 0; i < stringMatrix.length; i++) {
+            for (int j = 0; j < stringMatrix[0].length; j++) {
+              System.out.print(stringMatrix[i][j] + " ");
+            }
+            System.out.println();
+          }
+    }
+    
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
+        nMatrix++;
+        mMatrix++;
+        String mMat = String.valueOf(mMatrix);
+        String nMat = String.valueOf(nMatrix);
+        jLabel2.setText(nMat);
+        jLabel4.setText(mMat);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        closeAllWindows();
+        new MainMenu().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        nMatrix--;
+        mMatrix--;
+        String mMat = String.valueOf(mMatrix);
+        String nMat = String.valueOf(nMatrix);
+        jLabel2.setText(nMat);
+        jLabel4.setText(mMat);
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     
     /**
@@ -177,12 +286,129 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void afterInput(){
+        if (AlgeoTubes.SPLEliminasiGauss == 1) {
+            new SPLMetodeEliminasiGauss().setVisible(true);
+
+        } else if (AlgeoTubes.SPLELiminasiGaussJordan == 1){
+            new SPLMetodeEliminasiGaussJordan().setVisible(true);
+
+        } else if (AlgeoTubes.SPLMatriksBalikan == 1){
+            new SPLMetodeMatriksBalikan().setVisible(true);
+
+        } else if (AlgeoTubes.SPLCramer == 1){
+            new SPLKaidahCramer().setVisible(true);
+
+        } else if (AlgeoTubes.DETDeterminanNxN == 1){
+            new DETDeterminanNxN().setVisible(true);
+
+        } else if (AlgeoTubes.DETDeterminandenganKofaktor == 1){
+            new DETDeterminandenganKofaktor().setVisible(true);
+
+        } else if (AlgeoTubes.DETDeterminanMatriksSegitiga == 1){
+            new DETDeterminanMatriksSegitiga().setVisible(true);
+
+        } else if (AlgeoTubes.INVAdjoin == 1){
+            new INVMatriksinversedenganAdjoin().setVisible(true);
+
+        } else if (AlgeoTubes.INVBalikan == 1){
+            new INVMetodematriksBalikan().setVisible(true);
+
+        } else if (AlgeoTubes.InterpolasiPolinom == 1){
+            new InterpolasiPolinom().setVisible(true);
+
+        } else if (AlgeoTubes.InterpolasiBicubicSpline == 1){
+            new InterpolasiBicubicSpline().setVisible(true);
+
+        } else if (AlgeoTubes.RegresiLinearBerganda == 1){
+            new RegresiLinierBerganda().setVisible(true);
+
+        } else if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
+            new SPLMetodeEliminasiGaussJordan().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "An error occurred. Contact Ojan for help.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public static void closeAllWindows() {
+    for (Window window : Window.getWindows()) {
+        window.dispose();
+        }
+    }
+    
+    public double[][] getTextfieldTodoubleMatrix(JTextField[][] textFields) {
+        double[][] doubleMatrix = new double[nMatrix][mMatrix];
+        int error = 0;
+        double value;
+        String text;
+        for (int i = 0; i < nMatrix; i++) {
+            for (int j = 0; j < mMatrix; j++) {
+                if (textFields[i][j] == null){
+                    text = "0";
+                } else {
+                    text = textFields[i][j].getText();
+                }
+                
+
+                try {
+                    if (!text.isEmpty()) {
+                        value = Double.parseDouble(text);
+                    }
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "An error occurred. Contact Ojan for help.", "Error", JOptionPane.ERROR_MESSAGE);
+                    error = 1;
+                }
+                
+                if (text.isEmpty()) {
+                    value = 0;
+                } else {
+                    value = Double.parseDouble(text);
+                }
+                
+                doubleMatrix[i][j] = value;
+            }
+            if (error == 1){
+                break;
+            }
+        }
+        return doubleMatrix;
+    }
+
+    public double getTextfieldToFloat(JTextField textField) {
+        String text = textField.getText();
+    
+        if (text.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "An error occurred. Contact Ojan for help.", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+    
+        try {
+            Double value = Double.valueOf(text);
+            return value;
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "An error occurred. Contact Ojan for help.", "Error", JOptionPane.ERROR_MESSAGE);
+            return -1;
+        }
+    }
+    
+    public void close(){
+        WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
