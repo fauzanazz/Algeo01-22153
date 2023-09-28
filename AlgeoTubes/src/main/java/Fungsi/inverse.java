@@ -2,14 +2,24 @@ package AlgeoTubes.src.main.java.Fungsi;
 
 public class Inverse {
     // public static void main (String[] args){
-    //     System.out.println(getInverseOutput(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"), "Adjoin"));
-    //     System.out.println(getInverseOutput(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"), "Identity"));
+    //     String[][] stringMatrix = getInverseOutput(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"), "Adjoin");
+    //     for (int i = 0; i < stringMatrix.length; i++) {
+    //         for (int j = 0; j < stringMatrix[0].length; j++) {
+    //           System.out.print(stringMatrix[i][j] + " ");
+    //         }
+    //         System.out.println();
+    //     }
+    //     stringMatrix = getInverseOutput(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"), "Identity");
+    //     for (int i = 0; i < stringMatrix.length; i++) {
+    //         for (int j = 0; j < stringMatrix[0].length; j++) {
+    //           System.out.print(stringMatrix[i][j] + " ");
+    //         }
+    //         System.out.println();
+    //     }
     // }
 
     // Start of returning string
-    private static String sOut = "";
-
-    public static String getInverseOutput(double[][] matriks, String Function){
+    public static String[][] getInverseOutput(double[][] matriks, String Function){
         double[][] matrix = new double[matriks.length][matriks[0].length];
         if (Function == "Adjoin"){
             matrix = getInverseFromAdjoin(matriks);
@@ -17,13 +27,11 @@ public class Inverse {
         } else if (Function == "Identity"){
             matrix = get_Inverse_Matriks_fromIdentity(matriks); 
         } 
-        sOut = "";
+        String[][] sOut = new String[matriks.length][matriks[0].length];
         for (int i=0; i<matrix.length; i++){
             for (int j=0; j<matrix[i].length; j++){
-                sOut += String.format("%.3f",matrix[i][j]);
-                if (j != matrix[0].length -1) sOut += " ";
+                sOut[i][j] = String.format("%.3f",matrix[i][j]);
             }
-            if (i != matrix.length -1) sOut += "\n";
         }
         return sOut;
     }

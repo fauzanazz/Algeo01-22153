@@ -42,7 +42,7 @@ The code describe as this
 9. Calculate the determinant by multiplie 1 with all the element of main diagonal.
 
 
-int determinan_kofaktor.
+## Determinan kofaktor
 
 Param:
 - float with 2D array, Matrix
