@@ -1,29 +1,39 @@
-package Fungsi;
+package AlgeoTubes.src.main.java.Fungsi;
 
 public class Inverse {
+    // public static void main (String[] args){
+    //     System.out.println(getInverseOutput(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"), "Adjoin"));
+    //     System.out.println(getInverseOutput(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"), "Identity"));
+    // }
+
+    // Start of returning string
+    private static String sOut = "";
+
+    public static String getInverseOutput(double[][] matriks, String Function){
+        double[][] matrix = new double[matriks.length][matriks[0].length];
+        if (Function == "Adjoin"){
+            matrix = getInverseFromAdjoin(matriks);
+    
+        } else if (Function == "Identity"){
+            matrix = get_Inverse_Matriks_fromIdentity(matriks); 
+        } 
+        sOut = "";
+        for (int i=0; i<matrix.length; i++){
+            for (int j=0; j<matrix[i].length; j++){
+                sOut += String.format("%.3f",matrix[i][j]);
+                if (j != matrix[0].length -1) sOut += " ";
+            }
+            if (i != matrix.length -1) sOut += "\n";
+        }
+        return sOut;
+    }
+    // End of returning string
+    
 
     // Start of Inverse Matrix using Matrix Identity and Gauss-Jordan Elimination
-    private static void exception(float[][] matrix){ // Check whether the Matrix is a Square Matrix 
-        if(matrix[0].length != matrix.length){ 
-            System.err.println("The Length of the Column and Row must Same");
-            System.exit(0);
-        }
-        for(int i = 0; i < matrix.length; i++){ // Check the length Equality of each Row
-            for(int j = i; j < matrix.length;j++){
-                if(matrix[i].length != matrix[j].length){
-                    System.err.println("The length of each Row must Same");
-                    System.exit(0);
-                }
-            }
-        }     
-        if(Determinan.determinan_kofaktor(matrix) == 0){ //Check the Determinant of current Matrix
-            System.err.println("The Matrix doesn't have an Inverse");
-            System.exit(0);
-        }
-    }
-    private static float[][] MatriksIdentity_Maker(float[][] matrix){ // make a matrixIdentity
+    private static double[][] MatriksIdentity_Maker(double[][] matrix){ // make a matrixIdentity
         int n = matrix.length;
-        float[][] matrix_identity = new float[n][n];
+        double[][] matrix_identity = new double[n][n];
         for(int i = 0; i < n ; i++){
             for(int j = 0; j < n; j++){
                 if(i == j){
@@ -37,10 +47,10 @@ public class Inverse {
         return matrix_identity;
     }
 
-    private static float[][] Add_MatrixIdentity(float[][] matrix){ // make a matrix that combine the current matrix with its matrix identity
+    private static double[][] Add_MatrixIdentity(double[][] matrix){ // make a matrix that combine the current matrix with its matrix identity
         int n = matrix.length;
-        float[][] matriks_identity = MatriksIdentity_Maker(matrix);
-        float[][] temp = new float[n][n*2];
+        double[][] matriks_identity = MatriksIdentity_Maker(matrix);
+        double[][] temp = new double[n][n*2];
         for(int i = 0; i < n; i++){
             for(int j = 0; j < n;j++){
                 temp[i][j] = matrix[i][j];
@@ -54,7 +64,7 @@ public class Inverse {
         return temp;
     }
 
-    private static int zeroCounter(float[][] matrix, int row){ // Count the Amount of Zero in the left of matrix[row], this will be used in the Swapping Operation
+    private static int zeroCounter(double[][] matrix, int row){ // Count the Amount of Zero in the left of matrix[row], this will be used in the Swapping Operation
         int sum = 0;
         for(int i = 0; i < matrix[row].length; i++){
             if(matrix[row][i] == 0){
@@ -67,9 +77,9 @@ public class Inverse {
         return sum;
     }
 
-    private static void swapping_Operation(float[][] matrix){ // Calculate the Logic Behind The Swapping of 2 Rows
+    private static void swapping_Operation(double[][] matrix){ // Calculate the Logic Behind The Swapping of 2 Rows
         for(int i = 0; i < matrix.length; i++){
-            for(int j = matrix.length; j >= i; j--){
+            for(int j = matrix.length-1; j >= i; j--){
                 if(zeroCounter(matrix, i) > zeroCounter(matrix, j)){
                     matrix_Swapping(matrix, i, j);
                 }
@@ -78,30 +88,31 @@ public class Inverse {
         }
     }
 
-    private static void matrix_Swapping(float[][] matrix, int row_will_be_changed, int row_who_changed){ // swap between the Matrix[row_will_be_changed] and Matrix[row_who_changed]
-        float[][] temp = new float[1][matrix[0].length];
+    private static void matrix_Swapping(double[][] matrix, int row_will_be_changed, int row_who_changed){ // swap between the Matrix[row_will_be_changed] and Matrix[row_who_changed]
+        double[][] temp = new double[1][matrix[0].length];
         for(int i = 0; i < matrix[0].length;i++){
-             temp[0][i] = matrix[row_who_changed][i];
-             matrix[row_who_changed][i] = matrix[row_will_be_changed][i];
-             matrix[row_will_be_changed][i] = temp[0][i];
+            temp[0][i] = matrix[row_who_changed][i];
+            matrix[row_who_changed][i] = matrix[row_will_be_changed][i];
+            matrix[row_will_be_changed][i] = temp[0][i];
         }
     }
-    private static void Multipy_Operation(float[][] matrix, int row_will_be_changed, int column_will_be_changed){ // multiply the desired row_will_be_changed and column_will_be_changed so the result is 1
-        float x = 1/matrix[row_will_be_changed][column_will_be_changed];
+
+    private static void Multipy_Operation(double[][] matrix, int row_will_be_changed, int column_will_be_changed){ // multiply the desired row_will_be_changed and column_will_be_changed so the result is 1
+        double x = 1/matrix[row_will_be_changed][column_will_be_changed];
         for(int i = 0; i < matrix[0].length;i++){
             matrix[row_will_be_changed][i] *= x;
         } 
     }
 
-    private static void Reduce_Operation(float[][] matrix, int row_will_be_changed,int column_will_be_changed, int row_who_changed){ // Reduce the selected Matrix[row_will_be_changed][column_will_be_changed] into 0 and apply it to the rest of the Column
-        float x =  matrix[row_will_be_changed][column_will_be_changed]/matrix[row_who_changed][column_will_be_changed];
+    private static void Reduce_Operation(double[][] matrix, int row_will_be_changed,int column_will_be_changed, int row_who_changed){ // Reduce the selected Matrix[row_will_be_changed][column_will_be_changed] into 0 and apply it to the rest of the Column
+        double x =  matrix[row_will_be_changed][column_will_be_changed]/matrix[row_who_changed][column_will_be_changed];
         for(int i = 0; i < matrix[0].length; i++){
             matrix[row_will_be_changed][i] -= (x*matrix[row_who_changed][i]);
         }
     }
 
-    private static float[][] Gauss_Operation(float[][] matrix){ // Do Gauss - Jordan Operation to change the current matrix into matrix identity
-        float[][] matrix_inverted = Add_MatrixIdentity(matrix);
+    private static double[][] Gauss_Operation(double[][] matrix){ // Do Gauss - Jordan Operation to change the current matrix into matrix identity
+        double[][] matrix_inverted = Add_MatrixIdentity(matrix);
 
         for(int i = 0; i < matrix_inverted.length; i++){
             swapping_Operation(matrix_inverted);
@@ -115,15 +126,12 @@ public class Inverse {
                 }
             }
         }  
-
-
         return matrix_inverted;
     }
 
-    
-    public static void Inverse_Matriks(float[][] matrix){ // The Main Function of Turning a Matrix into inverted Matrix
-        exception(matrix);
-        float[][] matriks_inverted = Gauss_Operation(matrix);
+    public static double[][] get_Inverse_Matriks_fromIdentity(double[][] matrix){ // The Main Function of Turning a Matrix into inverted Matrix
+        // exception(matrix);
+        double[][] matriks_inverted = Gauss_Operation(matrix);
         int end_row = matriks_inverted.length;
         int start_col = (matriks_inverted[0].length)/2;
         int end_col = matriks_inverted[0].length;
@@ -135,7 +143,71 @@ public class Inverse {
             }
             k= 0;
         }
+        return matrix;
+    }
+    // End of Inverse Matrix using Matrix Identity and Gauss-Jordan Elimination
+
+
+
+
+    // Start of Inverse Matrix using Matrix Adjoin and Kofaktor
+    public static double[][] getInverseFromAdjoin(double[][] matriks){
+        double det = Determinan.determinan_kofaktor(matriks);
+        // if (det == 0) {
+        //     sOut += ("Matriks memiliki balikan jika dan hanya jika nilai determinan matriks tidak sama dengan 0!");
+        //     return new double[1][1]; 
+        // }
+        // if (matriks.length != matriks[0].length) {
+        //     sOut += ("Matriks yang diinput bukan merupakan matriks persegi!");
+        //     return new double[1][1]; 
+        // }
+        matriks = getKofaktor(matriks);
+        matriks = getTranspose(matriks);
+        for(int i = 0; i<matriks.length; i++){
+            for(int j=0; j<matriks[i].length; j++){
+                matriks[i][j] *= (1/det);
+            }
+        }
+        return matriks;
     }
 
-    // End of Inverse Matrix using Identity and Gauss-Jordan Elimination
+    private static double[][] getKofaktor(double[][]matriks){
+        double[][] m = new double[matriks.length][matriks[0].length];
+        for (int i = 0; i<matriks.length; i++){
+            for (int j = 0; j<matriks[i].length; j++){
+                m[i][j] = getKofaktorValue(matriks, i, j) * (double)Math.pow(-1,(i+j));
+            }
+        }
+        return m;
+    }
+
+    private static double getKofaktorValue(double[][] matriks, int x, int y){
+        double[][] temp_matriks = new double[matriks.length-1][matriks[0].length-1];
+        int tempi = 0, tempj = 0;
+        for (int i=0; i<matriks.length; i++){
+            for (int j=0; j<matriks[i].length; j++){
+                if (i != x && j != y){
+                    temp_matriks[tempi][tempj] = matriks[i][j];
+                    tempj++;
+                    if (tempj>=temp_matriks.length){
+                        tempj = 0;
+                        tempi++;
+                    }
+                        
+                }
+            }
+        }
+        return Determinan.determinan_kofaktor(temp_matriks);
+    }
+
+    private static double[][] getTranspose(double[][] matriks){
+        double[][] matriks_transpose= new double[matriks.length][matriks[0].length];
+        for (int i = 0; i<matriks.length; i++){
+            for (int j = 0; j<matriks[i].length; j++){
+                matriks_transpose[i][j] = matriks[j][i];
+            }
+        }
+        return matriks_transpose;
+    }
+    // End of Inverse Matrix using Matrix Adjoin and Kofaktor
 }
