@@ -1,4 +1,22 @@
-int determinangauss.
+# ** SPL
+
+# SPL Cramer
+Param:
+- Float 2D array, matrix
+- the size of matrix n*n , matrix_size
+- Integer of what to solve (x1 = 1, x2 = 2, x3 = 3, xn = n), penyelesaian
+
+The code describe as this
+
+1. Find the determinant of the original matrix
+2. If determinant = 0, then this matrix doenst have any solve
+3. If determinant != 0, then continue
+4. Find the determinant of the matrix that has been replaced with the column of the matrix that has been replaced with the result of the matrix
+5. The result of the determinant in (4.) divided by the determinant in (1.) is the value of the variable that is being solved
+
+
+# ** Determinan **
+## Determinan Gauss
 
 Param:
 - float with 2D array, matrix
@@ -22,3 +40,4 @@ The code describe as this
 
 ~ Step3 ~
 9. Calculate the determinant by multiplie 1 with all the element of main diagonal.
+

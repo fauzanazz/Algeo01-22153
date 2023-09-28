@@ -12,7 +12,7 @@ package Fungsi;
 public class SPL {
     public float SPLCramer(float[][] matrix, int matrix_size, int penyelesaian) {
         // Cari Determinan dari matrix ini.
-        float det = Determinan.determinangauss(matrix, matrix_size);
+        float det = Fungsi.Determinan.determinangauss(matrix, matrix_size);
 
         // Jika determinan tidak ada, maka SPL tidak memiliki solusi.
         if (det == 0) {

@@ -45,6 +45,7 @@ public class MainMenu extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
 
@@ -84,7 +85,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel4.setPreferredSize(new java.awt.Dimension(350, 200));
 
-        jPanel2.setLayout(new java.awt.GridLayout(6, 1));
+        jPanel2.setLayout(new java.awt.GridLayout(7, 1));
 
         jButton1.setText("Sistem Persamaaan Linier");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +134,14 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButton6);
+
+        jButton8.setText("Implementasi Interpolasi Bicubic Spline");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton8);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -213,19 +222,28 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        AlgeoTubes.InterpolasiPolinom = 1;
         close();
-        new InterpolasiPolinom().setVisible(true);
+        new Input().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        AlgeoTubes.InterpolasiBicubicSpline = 1;
         close();
-        new InterpolasiBicubicSpline().setVisible(true);
+        new Input().setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        AlgeoTubes.RegresiLinearBerganda = 1;
         close();
-        new RegresiLinierBerganda().setVisible(true);
+        new Input().setVisible(true);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        AlgeoTubes.ImplementasiInterpolasiBicubicSpline = 1;
+        close();
+        new Input().setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
     
     
     
@@ -272,6 +290,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
