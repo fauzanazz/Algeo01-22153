@@ -25,7 +25,7 @@ public class SPLGaussJordan{
         // Count total 0 in the front of each row
         for (int i=0; i<matrix.length; i++){
             int count = 0;
-            for (int j=0; j<matrix[i].length; j++){
+            for (int j=0; j<matrix[i].length-1; j++){
                 if (matrix[i][j] == 0){
                     count++;
                 } else {
@@ -129,16 +129,42 @@ public class SPLGaussJordan{
         int[] sum_0 = getTotal0(matrix);
         double[][] m;
         if (matrix.length > matrix[0].length){
-           m = new double[matrix.length][matrix[0].length];
+            m = new double[matrix.length][matrix[0].length];
+
+            // fill matrix
+            for (int i=0; i<matrix.length; i++){
+                for (int j=0; j<matrix[i].length; j++){
+                    m[i][j] = matrix[i][j];
+                }
+            }
+
+            // Simplify Matriks
+            int idxLast = -1;
+            for (int i=0; i<sum_0.length; i++){
+                if (sum_0[i] == m[i].length-1 && m[i][m[i].length-1] == 0){
+                    break;
+                } else {
+                    idxLast = idxLast + 1;
+                }
+            }
+            if (idxLast < m.length-1){
+                m = simplifyMatriks(m, idxLast);
+            }
+
         } else {
             m = new double[matrix[0].length-1][matrix[0].length]; 
-        }
 
-        for (int i=0; i<matrix.length; i++){
-            for (int j=0; j<matrix[i].length; j++){
-                m[i][j] = matrix[i][j];
+            // fill matrix
+            for (int i=0; i<matrix.length; i++){
+                for (int j=0; j<matrix[i].length; j++){
+                    m[i][j] = matrix[i][j];
+                    
+                }
             }
         }
+
+
+
         // Cek Jenis Solusi
         if (m[m.length-1-sum_0[0]][m[0].length-2] == 1){
             // Solusi tunggal
@@ -156,6 +182,16 @@ public class SPLGaussJordan{
         }
     }
 
+    private static double[][] simplifyMatriks(double[][] matrix, int row){
+        double[][] m = new double[row+1][matrix[0].length];
+        for (int i=0; i<=row; i++){
+            for (int j=0; j<matrix[i].length; j++){
+                m[i][j] = matrix[i][j];
+            }
+        }
+        return m;
+    }
+
     private static void getSingleSolution(double[][] matrix,int row){
         for (int j=0; j<matrix.length; j++){
             if (matrix[row][j] == 1) {
@@ -169,9 +205,10 @@ public class SPLGaussJordan{
         int[] sum_0 = getTotal0(matrix);
         int idxLast = -1;
         int temp = 112;
+        int temp1 = 112;
         for (int i=0; i<sum_0.length; i++){
-            if (sum_0[i] < matrix.length){
-                idxLast = idxLast + 1;
+            if (sum_0[i] < matrix[i].length-1){
+                idxLast++;
             } else {
                 break;
             }
@@ -180,14 +217,15 @@ public class SPLGaussJordan{
         sOut += "Misal: \n";
         for (int j = sum_0[idxLast] + 1; j < matrix.length; j++){
             String s = String.format("X%d = ", j+1);
-            sOut += s + (char) temp + "\n";
-            temp++;
+            sOut += s + (char) temp1 + "\n";
+            temp1++;
         }
         sOut += "Maka: \n";
         for (int i=0; i<=idxLast; i++){
             String s;
             boolean isKosong;
-            if (matrix[i][matrix.length] == 0){
+
+            if (matrix[i][matrix[i].length-1] == 0){
                 s = String.format("X%d = ", sum_0[i]+1);
                 isKosong = true;
             } else {
@@ -195,7 +233,9 @@ public class SPLGaussJordan{
                 isKosong = false;
             }
             sOut += s;
+
             for (int j=sum_0[idxLast] + 1; j<matrix.length; j++){
+                s="";
                 if (matrix[i][j] < 0){
                     if (isKosong){
                         if (-1*matrix[i][j] == 1){
@@ -211,7 +251,8 @@ public class SPLGaussJordan{
                             s = String.format(" + %f ", (-1*matrix[i][j]));
                         }
                     }
-                } else {
+                    s += String.valueOf((char)(temp-1+j-sum_0[idxLast]));
+                } else if (matrix[i][j] > 0){
                     if (isKosong){
                         if (matrix[i][j] == 1){
                             s = String.format("- ");
@@ -226,9 +267,11 @@ public class SPLGaussJordan{
                             s = String.format(" - %f ", matrix[i][j]);
                         }
                     }
+                    s += String.valueOf((char)(temp-1+j-sum_0[idxLast]));
                 }
-                sOut += s + (char)(temp-2+j-sum_0[idxLast]) + "\n";
+                sOut += s;
             }
+            sOut += "\n";
         }
     }
 }
