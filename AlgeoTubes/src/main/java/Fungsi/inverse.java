@@ -81,9 +81,9 @@ public class Inverse {
     private static void matrix_Swapping(float[][] matrix, int row_will_be_changed, int row_who_changed){ // swap between the Matrix[row_will_be_changed] and Matrix[row_who_changed]
         float[][] temp = new float[1][matrix[0].length];
         for(int i = 0; i < matrix[0].length;i++){
-             temp[0][i] = matrix[row_who_changed][i];
-             matrix[row_who_changed][i] = matrix[row_will_be_changed][i];
-             matrix[row_will_be_changed][i] = temp[0][i];
+            temp[0][i] = matrix[row_who_changed][i];
+            matrix[row_who_changed][i] = matrix[row_will_be_changed][i];
+            matrix[row_will_be_changed][i] = temp[0][i];
         }
     }
     private static void Multipy_Operation(float[][] matrix, int row_will_be_changed, int column_will_be_changed){ // multiply the desired row_will_be_changed and column_will_be_changed so the result is 1

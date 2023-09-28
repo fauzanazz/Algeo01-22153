@@ -5,6 +5,7 @@
 package besokminggu.algeotubes;
 
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.WindowEvent;
 
 /**
@@ -38,7 +39,7 @@ public class SPLMetodeEliminasiGaussJordan extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -52,7 +53,7 @@ public class SPLMetodeEliminasiGaussJordan extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(313, Short.MAX_VALUE)
+                .addContainerGap(316, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -85,9 +86,14 @@ public class SPLMetodeEliminasiGaussJordan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        close();
+        closeAllWindows();
         new MainMenu().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+    public static void closeAllWindows() {
+    for (Window window : Window.getWindows()) {
+        window.dispose();
+        }
+    }
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);

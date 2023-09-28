@@ -24,7 +24,7 @@ public class Input extends javax.swing.JFrame {
     }
     public int getM(){
         try {
-            int number = Integer.parseInt(jTextField1.getText());
+            int number = Integer.parseInt(jTextField2.getText());
             return number;
         } catch (NumberFormatException e) {
             return -1;
@@ -32,7 +32,7 @@ public class Input extends javax.swing.JFrame {
     }
     public int getN(){
         try {
-            int number = Integer.parseInt(jTextField2.getText());
+            int number = Integer.parseInt(jTextField1.getText());
             return number;
         } catch (NumberFormatException e) {
             return -1;
@@ -184,9 +184,15 @@ public class Input extends javax.swing.JFrame {
     int returnVal;
     File selectedFile;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT Files", "txt");
         JFileChooser j = new JFileChooser();
-        j.setFileFilter(filter);
+        if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1 ){
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg");
+            j.setFileFilter(filter);
+        } else {
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("TXT Files", "txt");
+            j.setFileFilter(filter);
+        }
+        
         returnVal = j.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             selectedFile = j.getSelectedFile();

@@ -28,7 +28,9 @@ public class AlgeoTubes extends JFrame {
     static int ImplementasiInterpolasiBicubicSpline = 0;
     static int n;
     static int m;
-            
+    
+    static double[][] matriksinput;
+    
     public static void main(String[] args) {
         new MainMenu().setVisible(true);
     }
