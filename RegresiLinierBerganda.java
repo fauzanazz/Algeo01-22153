@@ -1,6 +1,6 @@
 public class RegresiLinierBerganda {
 
-    public static void RLB(double[][] matrix){
+    public static String RLB(double[][] matrix){
         double[][] m = NEE(matrix);
         String sOut = "Didapat nilai masing-masing b adalah sebagai berikut:\n"; 
         String temp = "";
@@ -36,8 +36,8 @@ public class RegresiLinierBerganda {
             sOut += temp_value[i] + " X" + String.valueOf(i);
             if (i < temp_value.length-1) sOut += " +";
         }
-
-        System.out.println(sOut);
+        
+        return sOut;
     }
     
     private static double[][] NEE(double[][] matrix){
