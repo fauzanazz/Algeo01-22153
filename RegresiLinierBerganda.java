@@ -36,8 +36,8 @@ public class RegresiLinierBerganda {
             sOut += temp_value[i] + " X" + String.valueOf(i);
             if (i < temp_value.length-1) sOut += " +";
         }
-
-        return (sOut);
+        
+        return sOut;
     }
     
     private static double[][] NEE(double[][] matrix){
