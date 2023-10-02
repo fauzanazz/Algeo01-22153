@@ -233,6 +233,7 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
         closeAllWindows();
         new MainMenu().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -327,8 +328,9 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
     }
     
     public static void closeAllWindows() {
-    for (Window window : Window.getWindows()) {
-        window.dispose();
+        Input.ResetState();
+        for (Window window : Window.getWindows()) {
+            window.dispose();
         }
     }
     

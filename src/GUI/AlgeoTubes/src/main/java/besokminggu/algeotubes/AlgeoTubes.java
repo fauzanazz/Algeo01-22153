@@ -29,6 +29,7 @@ public class AlgeoTubes extends JFrame {
     static int n;
     static int m;
     static int x;
+    static String pathfile;
     
     static double[][] matriksinput;
     static String output;

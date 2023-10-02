@@ -4,7 +4,6 @@
  */
 package besokminggu.algeotubes;
 
-import static besokminggu.algeotubes.DETDeterminanMatriksSegitiga.closeAllWindows;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
@@ -20,7 +19,7 @@ public class DETDeterminanNxN extends javax.swing.JFrame {
      */
     public DETDeterminanNxN() {
         initComponents();
-        String hasil = String.valueOf(besokminggu.fungsialgeo.Determinan.DeterminanNxN(AlgeoTubes.matriksinput));
+        String hasil = String.valueOf(besokminggu.fungsialgeo.Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"NxN"));
         jTextArea1.setText(hasil);
     }
 
@@ -123,6 +122,7 @@ public class DETDeterminanNxN extends javax.swing.JFrame {
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
     }
     public static void closeAllWindows() {
+        Input.ResetState();
     for (Window window : Window.getWindows()) {
         window.dispose();
         }

@@ -19,7 +19,7 @@ public class DETDeterminandenganKofaktor extends javax.swing.JFrame {
      */
     public DETDeterminandenganKofaktor() {
         initComponents();
-        String hasil = String.valueOf(besokminggu.fungsialgeo.Determinan.determinan_kofaktor(AlgeoTubes.matriksinput));
+        String hasil = String.valueOf(besokminggu.fungsialgeo.Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"Kofaktor"));
         jTextArea1.setText(hasil);
     }
 
@@ -110,6 +110,7 @@ public class DETDeterminandenganKofaktor extends javax.swing.JFrame {
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
     }
     public static void closeAllWindows() {
+        Input.ResetState();
     for (Window window : Window.getWindows()) {
         window.dispose();
         }

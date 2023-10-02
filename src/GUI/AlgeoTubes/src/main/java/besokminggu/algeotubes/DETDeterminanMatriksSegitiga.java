@@ -21,7 +21,7 @@ public class DETDeterminanMatriksSegitiga extends javax.swing.JFrame {
      */
     public DETDeterminanMatriksSegitiga() {
         initComponents();
-        String hasil = String.valueOf(Determinan.determinangauss(AlgeoTubes.matriksinput));
+        String hasil = String.valueOf(Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"Gauss"));
         jTextArea1.setText(hasil);
     }
 
@@ -106,6 +106,7 @@ public class DETDeterminanMatriksSegitiga extends javax.swing.JFrame {
         new MainMenu().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
     public static void closeAllWindows() {
+        Input.ResetState();
     for (Window window : Window.getWindows()) {
         window.dispose();
         }

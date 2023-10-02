@@ -111,6 +111,7 @@ public class INVMatriksinversedenganAdjoin extends javax.swing.JFrame {
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
     }
     public static void closeAllWindows() {
+        Input.ResetState();
     for (Window window : Window.getWindows()) {
         window.dispose();
         }

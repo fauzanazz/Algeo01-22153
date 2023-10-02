@@ -11,6 +11,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import besokminggu.fungsialgeo.TextToMatriks;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author DELL
@@ -182,7 +185,7 @@ public class Input extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTextField1ActionPerformed
     
-    int returnVal;
+    int returnVal = 1;
     File selectedFile;
     String filename;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -206,14 +209,27 @@ public class Input extends javax.swing.JFrame {
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
+        if (returnVal == JFileChooser.APPROVE_OPTION && AlgeoTubes.ImplementasiInterpolasiBicubicSpline != 1) {
             AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
             boolean square = AlgeoTubes.matriksinput.length == AlgeoTubes.matriksinput[0].length;
-            afterInput(square);
+            try {
+                afterInput(square);
+            } catch (IOException ex) {
+                Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (returnVal == JFileChooser.APPROVE_OPTION){
+            AlgeoTubes.pathfile = filename;
+             try {
+                afterInput(false);
+            } catch (IOException ex) {
+                Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No file detected. Contact Ojan for help. Code error = 4", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    private void afterInput(boolean determinan){
+    private void afterInput(boolean determinan) throws IOException{
         if (AlgeoTubes.SPLEliminasiGauss == 1) {
             new SPLMetodeEliminasiGauss().setVisible(true);
 
@@ -254,13 +270,13 @@ public class Input extends javax.swing.JFrame {
             new RegresiLinierBerganda().setVisible(true);
 
         } else if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
-            new SPLMetodeEliminasiGaussJordan().setVisible(true);
+            new ImplementasiBicubicSpline().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "An error occurred. Contact Ojan for help. Code error = 1", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
     }
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    public static void ResetState(){
         AlgeoTubes.SPLEliminasiGauss = 0;
         AlgeoTubes.SPLELiminasiGaussJordan = 0;
         AlgeoTubes.SPLMatriksBalikan = 0;
@@ -274,6 +290,9 @@ public class Input extends javax.swing.JFrame {
         AlgeoTubes.InterpolasiBicubicSpline = 0;
         AlgeoTubes.RegresiLinearBerganda = 0;
         AlgeoTubes.ImplementasiInterpolasiBicubicSpline = 0;
+    }
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        ResetState();
         close();
         new MainMenu().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed

@@ -104,6 +104,7 @@ public class INVMetodematriksBalikan extends javax.swing.JFrame {
         new MainMenu().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
     public static void closeAllWindows() {
+        Input.ResetState();
     for (Window window : Window.getWindows()) {
         window.dispose();
         }
