@@ -4,6 +4,7 @@
  */
 package besokminggu.algeotubes;
 
+import static besokminggu.algeotubes.InputMatriksKeyboard.closeAllWindows;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -25,6 +26,9 @@ public class Input extends javax.swing.JFrame {
      */
     public Input() {
         initComponents();
+        if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
+            jPanel2.setVisible(false);
+        }
     }
     public int getM(){
         try {
@@ -42,6 +46,7 @@ public class Input extends javax.swing.JFrame {
             return -1;
          }
     }
+    
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this,WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeWindow);
@@ -59,18 +64,21 @@ public class Input extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("File");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -78,13 +86,26 @@ public class Input extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 187, -1, -1));
 
-        jButton2.setText("Keyboard");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jLabel2.setText("No file choosed");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 153, -1, -1));
+
+        jButton3.setText("Import File");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 117, -1, 34));
+
+        jButton4.setText("Back");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 268, -1, -1));
 
         jTextField1.setText("0");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -94,88 +115,69 @@ public class Input extends javax.swing.JFrame {
         });
 
         jTextField2.setText("0");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("X");
 
-        jLabel2.setText("No file choosed");
-
-        jButton3.setText("Import File");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Keyboard");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Back");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jButton1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(21, 21, 21))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(69, 69, 69))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
+                .addComponent(jButton2)
+                .addGap(75, 75, 75))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(114, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(58, 58, 58)
-                        .addComponent(jButton4))
-                    .addComponent(jButton2))
-                .addContainerGap())
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2))
         );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 117, -1, 93));
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel3.setText("Pilih Input");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 35, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -211,42 +213,64 @@ public class Input extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (returnVal == JFileChooser.APPROVE_OPTION && AlgeoTubes.ImplementasiInterpolasiBicubicSpline != 1) {
             AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
-            boolean square = AlgeoTubes.matriksinput.length == AlgeoTubes.matriksinput[0].length;
-            try {
-                afterInput(square);
-            } catch (IOException ex) {
-                Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+            if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.0){
+                JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                boolean square = AlgeoTubes.matriksinput.length == AlgeoTubes.matriksinput[0].length;
+                boolean under_3 = AlgeoTubes.matriksinput.length < 3 && AlgeoTubes.matriksinput[0].length < 3;
+                boolean inverse_spl = AlgeoTubes.matriksinput.length == AlgeoTubes.matriksinput[0].length-1;
+                try {
+                    afterInput(square, under_3,inverse_spl);
+                } catch (IOException ex) {
+                    Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        } else if (returnVal == JFileChooser.APPROVE_OPTION){
+        } else if (returnVal == JFileChooser.APPROVE_OPTION && (AlgeoTubes.InterpolasiBicubicSpline == 1 || AlgeoTubes.RegresiLinearBerganda == 1 || AlgeoTubes.InterpolasiPolinom == 1)) {
+            if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.0){
+                JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
+                AlgeoTubes.x = SpecialInput.getx();
+                System.out.println(AlgeoTubes.x);
+                try {
+                    afterInput(false, false, false);
+                } catch (IOException ex) {
+                    Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }else if (returnVal == JFileChooser.APPROVE_OPTION){
             AlgeoTubes.pathfile = filename;
-             try {
-                afterInput(false);
+            AlgeoTubes.x = SpecialInput.getx();
+            try {
+                afterInput(false, false, false);
             } catch (IOException ex) {
                 Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else {
+        } else if (returnVal != JFileChooser.APPROVE_OPTION) {
             JOptionPane.showMessageDialog(null, "No file detected. Contact Ojan for help. Code error = 4", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "OOPS! Contact Ojan for help. Code error = :P", "Bukan error kok", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
-    private void afterInput(boolean determinan) throws IOException{
+    private void afterInput(boolean determinan, boolean under_3, boolean inverse_spl) throws IOException{
         if (AlgeoTubes.SPLEliminasiGauss == 1) {
             new SPLMetodeEliminasiGauss().setVisible(true);
 
         } else if (AlgeoTubes.SPLELiminasiGaussJordan == 1){
             new SPLMetodeEliminasiGaussJordan().setVisible(true);
 
-        } else if (AlgeoTubes.SPLMatriksBalikan == 1){
+        } else if (AlgeoTubes.SPLMatriksBalikan == 1 && inverse_spl){
             new SPLMetodeMatriksBalikan().setVisible(true);
 
         } else if (AlgeoTubes.SPLCramer == 1){
             new SPLKaidahCramer().setVisible(true);
 
-        } else if (AlgeoTubes.DETDeterminanNxN == 1 && determinan){
+        } else if (AlgeoTubes.DETDeterminanNxN == 1 && determinan && under_3){
             new DETDeterminanNxN().setVisible(true);
 
-        } else if (AlgeoTubes.DETDeterminanNxN == 1 && determinan){
-            new DETDeterminanNxN().setVisible(true);
+        } else if (AlgeoTubes.DETDeterminanNxN == 1 && determinan && !under_3){
+            JOptionPane.showMessageDialog(null, "You found easter egg WOW! Your matrix is bigger than 3 id*o*.", "Maap ga maap kasar dikit.", JOptionPane.ERROR_MESSAGE);
 
         } else if (AlgeoTubes.DETDeterminandenganKofaktor == 1 && determinan){
             new DETDeterminandenganKofaktor().setVisible(true);
@@ -271,6 +295,7 @@ public class Input extends javax.swing.JFrame {
 
         } else if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
             new ImplementasiBicubicSpline().setVisible(true);
+            
         } else {
             JOptionPane.showMessageDialog(null, "An error occurred. Contact Ojan for help. Code error = 1", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -293,7 +318,7 @@ public class Input extends javax.swing.JFrame {
     }
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ResetState();
-        close();
+        closeAllWindows();
         new MainMenu().setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -308,9 +333,16 @@ public class Input extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Uh-oh! Inputnya error mas/mba! Error code = 4", "Error Ngabs Kayaknya Harus Kurang dari 3 lebih dari 0", JOptionPane.ERROR_MESSAGE);
         } else {
             close();
+            if(AlgeoTubes.InterpolasiPolinom == 1 || AlgeoTubes.InterpolasiBicubicSpline == 1 || AlgeoTubes.RegresiLinearBerganda == 1 || AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
+                new SpecialInput().setVisible(true);
+            }
             new InputMatriksKeyboard().setVisible(true);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -354,7 +386,9 @@ public class Input extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables

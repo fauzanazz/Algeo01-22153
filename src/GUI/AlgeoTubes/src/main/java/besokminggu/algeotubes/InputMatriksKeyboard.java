@@ -27,6 +27,48 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
     int mMatrix = AlgeoTubes.m;
     private JTextField[][] newTextFields;
     
+    private void addgrid(){
+        // Add a new row to the matrix input.
+        newTextFields = new JTextField[nMatrix+1][mMatrix+1];
+        for (int i = 0; i < nMatrix+1; i++) {
+            for (int j = 0; j < mMatrix+1; j++) {
+                newTextFields[i][j] = new JTextField();
+
+            }
+        }
+        jPanel1.removeAll();
+        for (int i = 0; i < nMatrix+1; i++) {
+            for (int j = 0; j < mMatrix+1; j++) {
+                jPanel1.add(newTextFields[i][j]);
+            }
+        }
+        // Update the GridLayout to include the new row.
+        jPanel1.setLayout(new GridLayout(nMatrix+1, nMatrix+1));
+        jPanel1.repaint();
+        jPanel1.updateUI();
+    }
+    
+    public void minusgrid(){
+        // Create a new 2D array with the selected row and column removed.
+            newTextFields = new JTextField[nMatrix - 1][mMatrix - 1];
+            for (int i = 0; i < nMatrix-1; i++) {
+                for (int j = 0; j < mMatrix-1; j++) {
+                    newTextFields[i][j] = new JTextField();
+                }
+            }
+            
+            jPanel1.removeAll();
+            for (int i = 0; i < nMatrix-1; i++) {
+                for (int j = 0; j < mMatrix-1; j++) {
+                    jPanel1.add(newTextFields[i][j]);
+                }
+            }
+
+            // Update the GridLayout to include the new row.
+            jPanel1.setLayout(new GridLayout(nMatrix-1, mMatrix-1));
+            jPanel1.repaint();
+            jPanel1.updateUI();
+    }
     
     public InputMatriksKeyboard() {
         initComponents();
@@ -49,52 +91,7 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
                 newTextFields[i][j] = new JTextField();
                 jPanel1.add(newTextFields[i][j]);
             }
-        }
-        
-        jButton3.addActionListener((ActionEvent e) -> {
-            // Add a new row to the matrix input.
-            newTextFields = new JTextField[nMatrix+1][mMatrix+1];
-            for (int i = 0; i < nMatrix+1; i++) {
-                for (int j = 0; j < mMatrix+1; j++) {
-                    newTextFields[i][j] = new JTextField();
-                    
-                }
-            }
-            jPanel1.removeAll();
-            for (int i = 0; i < nMatrix+1; i++) {
-                for (int j = 0; j < mMatrix+1; j++) {
-                    jPanel1.add(newTextFields[i][j]);
-                }
-            }
-            // Update the GridLayout to include the new row.
-            jPanel1.setLayout(new GridLayout(nMatrix+1, nMatrix+1));
-            jPanel1.repaint();
-            jPanel1.updateUI();
-            
-        });
-        
-        jButton2.addActionListener((ActionEvent e) -> {
-            // Create a new 2D array with the selected row and column removed.
-            newTextFields = new JTextField[nMatrix - 1][mMatrix - 1];
-            for (int i = 0; i < nMatrix-1; i++) {
-                for (int j = 0; j < mMatrix-1; j++) {
-                    newTextFields[i][j] = new JTextField();
-                }
-            }
-            
-            jPanel1.removeAll();
-            for (int i = 0; i < nMatrix-1; i++) {
-                for (int j = 0; j < mMatrix-1; j++) {
-                    jPanel1.add(newTextFields[i][j]);
-                }
-            }
-
-            // Update the GridLayout to include the new row.
-            jPanel1.setLayout(new GridLayout(nMatrix-1, mMatrix-1));
-            jPanel1.repaint();
-            jPanel1.updateUI();
-        });
-        
+        }  
     }
     
     /**
@@ -224,12 +221,18 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
     }
     
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        nMatrix++;
-        mMatrix++;
-        String mMat = String.valueOf(mMatrix);
-        String nMat = String.valueOf(nMatrix);
-        jLabel2.setText(nMat);
-        jLabel4.setText(mMat);
+        if (AlgeoTubes.DETDeterminanNxN != 1 || AlgeoTubes.DETDeterminanNxN == 1 && nMatrix < 3 ){
+            addgrid();
+            nMatrix++;
+            mMatrix++;
+            String mMat = String.valueOf(mMatrix);
+            String nMat = String.valueOf(nMatrix);
+            jLabel2.setText(nMat);
+            jLabel4.setText(mMat); 
+        } else {
+            JOptionPane.showMessageDialog(null, "Mana bisa bang dia nambah lagi, Error code = 911", "Duar you trigger an easter egg!", JOptionPane.ERROR_MESSAGE);
+        }
+            
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -239,12 +242,17 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        nMatrix--;
-        mMatrix--;
-        String mMat = String.valueOf(mMatrix);
-        String nMat = String.valueOf(nMatrix);
-        jLabel2.setText(nMat);
-        jLabel4.setText(mMat);
+        if (nMatrix > 1 && mMatrix > 1) {
+            minusgrid();
+            nMatrix--;
+            mMatrix--;
+            String mMat = String.valueOf(mMatrix);
+            String nMat = String.valueOf(nMatrix);
+            jLabel2.setText(nMat);
+            jLabel4.setText(mMat);
+        } else {
+            JOptionPane.showMessageDialog(null, "Walau sebenarnya tidak bisa mundur lagi, tetap pantang mundur kawan2!", "Duar you trigger an easter egg!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
     
     
