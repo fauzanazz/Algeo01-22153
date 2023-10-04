@@ -264,7 +264,7 @@ public class Input extends javax.swing.JFrame {
         } else if (AlgeoTubes.SPLMatriksBalikan == 1 && inverse_spl){
             new SPLMetodeMatriksBalikan().setVisible(true);
 
-        } else if (AlgeoTubes.SPLCramer == 1){
+        } else if (AlgeoTubes.SPLCramer == 1 && inverse_spl){
             new SPLKaidahCramer().setVisible(true);
 
         } else if (AlgeoTubes.DETDeterminanNxN == 1 && determinan && under_3){
@@ -334,7 +334,7 @@ public class Input extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Uh-oh! Inputnya error mas/mba! Error code = 4", "Error Ngabs Kayaknya Harus Kurang dari 3 lebih dari 0", JOptionPane.ERROR_MESSAGE);
         } else {
             close();
-            if(AlgeoTubes.InterpolasiPolinom == 1 || AlgeoTubes.InterpolasiBicubicSpline == 1 || AlgeoTubes.RegresiLinearBerganda == 1 || AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
+            if(AlgeoTubes.InterpolasiPolinom == 1 || AlgeoTubes.InterpolasiBicubicSpline == 1 || AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
                 new SpecialInput().setVisible(true);
             }
             new InputMatriksKeyboard().setVisible(true);

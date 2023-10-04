@@ -65,14 +65,15 @@ public class SPL {
         return matriks_copy;
     }
     public static String SPL_From_Inverse(double[][] matrix_input){ // The Main function of getting SPL result from AX = B, X = A^-1 * B 
+        // exception(matrix_input);
         double[][] matriks_A = new double[matrix_input.length][matrix_input[0].length -1]; //Make the non-Augmented Matriks
         double[][] matriks_B = new double[matrix_input.length][1]; //The Last Row
 
-        int row_length = matrix_input.length-1;
-        int col_length = matrix_input[0].length;
+        int row_length = matrix_input.length;
+        int col_length = matrix_input[0].length-1;
 
         // Matriks for A
-        for(int i = 0; i < col_length; i++){
+        for(int i = 0; i < row_length; i++){
             for(int j = 0; j < col_length;j++){
                 matriks_A[i][j] = matrix_input[i][j];
             }
@@ -80,7 +81,7 @@ public class SPL {
 
         // Matriks for B
         for(int i = 0; i < col_length; i++){
-            matriks_B[i][0] = matrix_input[i][row_length+1];
+            matriks_B[i][0] = matrix_input[i][col_length];
         }
 
         // Inverse Matriks A

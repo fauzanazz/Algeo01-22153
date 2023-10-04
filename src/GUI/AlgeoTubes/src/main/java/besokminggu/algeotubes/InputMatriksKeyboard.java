@@ -5,12 +5,17 @@
 package besokminggu.algeotubes;
 
 
+import besokminggu.fungsialgeo.TextToMatriks;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -201,8 +206,31 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         AlgeoTubes.matriksinput = getTextfieldTodoubleMatrix(newTextFields);
-        AlgeoTubes.x = SpecialInput.getx();
-        afterInput();
+        if (AlgeoTubes.InterpolasiBicubicSpline == 1) {
+            AlgeoTubes.x = SpecialInput.getx();
+            AlgeoTubes.y = SpecialInput.gety();
+            try {
+               afterInput(false, false, false);
+            } catch (IOException ex) {
+                Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1 || AlgeoTubes.InterpolasiPolinom == 1) {
+            AlgeoTubes.x = SpecialInput.getx();
+            try {
+                afterInput(false, false, false);
+            } catch (IOException ex) {
+                Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            boolean square = AlgeoTubes.matriksinput.length == AlgeoTubes.matriksinput[0].length;
+            boolean under_3 = AlgeoTubes.matriksinput.length < 3 && AlgeoTubes.matriksinput[0].length < 3;
+            boolean inverse_spl = AlgeoTubes.matriksinput.length == AlgeoTubes.matriksinput[0].length-1;
+            try {
+                afterInput(square, under_3, inverse_spl);
+            } catch (IOException ex) {
+                Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void doubleToStringMatrix(double[][] doubleMatrix) {
@@ -292,32 +320,35 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
         });
     }
     
-    private void afterInput(){
+    private void afterInput(boolean determinan, boolean under_3, boolean inverse_spl) throws IOException{
         if (AlgeoTubes.SPLEliminasiGauss == 1) {
             new SPLMetodeEliminasiGauss().setVisible(true);
 
         } else if (AlgeoTubes.SPLELiminasiGaussJordan == 1){
             new SPLMetodeEliminasiGaussJordan().setVisible(true);
 
-        } else if (AlgeoTubes.SPLMatriksBalikan == 1){
+        } else if (AlgeoTubes.SPLMatriksBalikan == 1 && inverse_spl){
             new SPLMetodeMatriksBalikan().setVisible(true);
 
-        } else if (AlgeoTubes.SPLCramer == 1){
+        } else if (AlgeoTubes.SPLCramer == 1 && inverse_spl){
             new SPLKaidahCramer().setVisible(true);
 
-        } else if (AlgeoTubes.DETDeterminanNxN == 1){
+        } else if (AlgeoTubes.DETDeterminanNxN == 1 && determinan && under_3){
             new DETDeterminanNxN().setVisible(true);
 
-        } else if (AlgeoTubes.DETDeterminandenganKofaktor == 1){
+        } else if (AlgeoTubes.DETDeterminanNxN == 1 && determinan && !under_3){
+            JOptionPane.showMessageDialog(null, "You found easter egg WOW! Your matrix is bigger than 3 id*o*.", "Maap ga maap kasar dikit.", JOptionPane.ERROR_MESSAGE);
+
+        } else if (AlgeoTubes.DETDeterminandenganKofaktor == 1 && determinan){
             new DETDeterminandenganKofaktor().setVisible(true);
 
-        } else if (AlgeoTubes.DETDeterminanMatriksSegitiga == 1){
+        } else if (AlgeoTubes.DETDeterminanMatriksSegitiga == 1 && determinan){
             new DETDeterminanMatriksSegitiga().setVisible(true);
 
-        } else if (AlgeoTubes.INVAdjoin == 1){
+        } else if (AlgeoTubes.INVAdjoin == 1 && determinan){
             new INVMatriksinversedenganAdjoin().setVisible(true);
 
-        } else if (AlgeoTubes.INVBalikan == 1){
+        } else if (AlgeoTubes.INVBalikan == 1 && determinan){
             new INVMetodematriksBalikan().setVisible(true);
 
         } else if (AlgeoTubes.InterpolasiPolinom == 1){
@@ -330,10 +361,12 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
             new RegresiLinierBerganda().setVisible(true);
 
         } else if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
-            new SPLMetodeEliminasiGaussJordan().setVisible(true);
+            new ImplementasiBicubicSpline().setVisible(true);
+            
         } else {
-            JOptionPane.showMessageDialog(null, "An error occurred. Contact Ojan for help.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "An error occurred. Contact Ojan for help. Code error = 1", "Error", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
     
     public static void closeAllWindows() {

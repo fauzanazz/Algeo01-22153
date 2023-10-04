@@ -24,9 +24,19 @@ public class SpecialInput extends javax.swing.JFrame {
      */
     public SpecialInput() {
         initComponents();
-        if (AlgeoTubes.InterpolasiBicubicSpline != 1){
+        if (AlgeoTubes.InterpolasiPolinom == 1){
             jTextField2.setVisible(false);
+            jLabel1.setText("Masukan X");
         }
+        if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1){
+            jTextField2.setVisible(false);
+            jLabel1.setText("Masukan Scale");
+        }
+        if (AlgeoTubes.InterpolasiBicubicSpline == 1){
+            jLabel1.setText("Masukan X dan Y");
+            jTextField2.setVisible(true);
+        }
+
         jTextField1.setPreferredSize(new Dimension(64, 22));
         jTextField1.setMinimumSize(new Dimension(64, 22));
         jTextField1.setMaximumSize(new Dimension(64,22));
@@ -52,7 +62,8 @@ public class SpecialInput extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setText("If you see this that means the program bugged");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Masukkan input");
 
         jTextField1.setText("0");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -72,15 +83,14 @@ public class SpecialInput extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addComponent(jLabel1)
-                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 156, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(161, 161, 161))
         );
         jPanel1Layout.setVerticalGroup(
