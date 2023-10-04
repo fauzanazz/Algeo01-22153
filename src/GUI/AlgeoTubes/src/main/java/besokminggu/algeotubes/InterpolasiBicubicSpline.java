@@ -24,9 +24,8 @@ public class InterpolasiBicubicSpline extends javax.swing.JFrame {
     public InterpolasiBicubicSpline() {
         initComponents();
         besokminggu.fungsialgeo.InterpolasiBicubicSpline.setMatrix(AlgeoTubes.matriksinput);
-        besokminggu.fungsialgeo.InterpolasiBicubicSpline.updateCoefficients(AlgeoTubes.matriksinput);
-        //String hasil = String.valueOf(besokminggu.fungsialgeo.InterpolasiBicubicSpline(AlgeoTubes.x, AlgeoTubes.y));
-        jTextField1.setText(String.valueOf(besokminggu.fungsialgeo.InterpolasiBicubicSpline.getValue(AlgeoTubes.x, AlgeoTubes.y)));
+        String hasil = String.valueOf(besokminggu.fungsialgeo.InterpolasiBicubicSpline.getBicubicOutput(AlgeoTubes.x, AlgeoTubes.y));
+        jTextField1.setText(String.valueOf(hasil));
         jTextArea2.setText(besokminggu.fungsialgeo.InterpolasiBicubicSpline.OutputMX());
     }
 
