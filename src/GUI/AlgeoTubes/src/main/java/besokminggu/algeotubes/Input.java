@@ -231,6 +231,7 @@ public class Input extends javax.swing.JFrame {
             } else {
                 AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
                 AlgeoTubes.x = SpecialInput.getx();
+                AlgeoTubes.y = SpecialInput.getx();
                 System.out.println(AlgeoTubes.x);
                 try {
                     afterInput(false, false, false);
@@ -247,7 +248,7 @@ public class Input extends javax.swing.JFrame {
                 Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (returnVal != JFileChooser.APPROVE_OPTION) {
-            JOptionPane.showMessageDialog(null, "No file detected. Contact Ojan for help. Code error = 4", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No file detected. Contact Ojan for help. Code error = 4", "Error, input ulang path!", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "OOPS! Contact Ojan for help. Code error = :P", "Bukan error kok", JOptionPane.ERROR_MESSAGE);
         }

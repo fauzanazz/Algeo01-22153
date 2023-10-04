@@ -19,7 +19,7 @@ public class InterpolasiPolinom extends javax.swing.JFrame {
      */
     public InterpolasiPolinom() {
         initComponents();
-        String hasil = String.valueOf(besokminggu.fungsialgeo.InterpolasiPolinom.pointToFungsiInterpolasi(AlgeoTubes.matriksinput, ABORT));
+        String hasil = String.valueOf(besokminggu.fungsialgeo.InterpolasiPolinom.getPolinomOutput(AlgeoTubes.matriksinput, AlgeoTubes.x));
         jTextArea1.setText(hasil);
     }
 
