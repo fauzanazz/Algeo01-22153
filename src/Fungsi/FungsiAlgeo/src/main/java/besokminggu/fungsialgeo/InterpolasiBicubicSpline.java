@@ -115,7 +115,7 @@ public class InterpolasiBicubicSpline {
 
     public static String OutputMX(){
         String output;
-        output = matrixOutput(matriksX);
+        output = matrixOutput(matriksCoefficient);
         return output;
     }
     

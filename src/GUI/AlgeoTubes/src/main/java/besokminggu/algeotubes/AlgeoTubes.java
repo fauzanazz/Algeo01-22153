@@ -3,19 +3,16 @@
  */
 
 package besokminggu.algeotubes;
-import java.io.File;
 import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author DELL
  */
 
 
-public class AlgeoTubes extends JFrame {
+public class AlgeoTubes{
 
     
     static int SPLEliminasiGauss = 0;
@@ -36,10 +33,14 @@ public class AlgeoTubes extends JFrame {
     static double x;
     static double y;
     static String pathfile;
+    static String hasil;
     
     static double[][] matriksinput;
     static String output;
     
+    public AlgeoTubes() {
+        new MainMenu().setVisible(true);
+    }
     public static void main(String[] args) {
         new MainMenu().setVisible(true);
     }
@@ -65,6 +66,7 @@ public class AlgeoTubes extends JFrame {
                 fileWriter.write(output);
 
             } catch (IOException e) {
+                
             }
         }
     }

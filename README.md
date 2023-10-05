@@ -16,8 +16,8 @@ Build project fungsialgeo
 
 ### Running
 
-Masuk ke Folder ALGEO01-22153/src/GUI/AlgeoTubes/src/main/java/besokminggu/algeotubes
-Lalu run file AlgeoTubes.java
+Masuk ke Folder ALGEO01-22153/src/GUI/AlgeoTubes/bin
+Lalu run file AlgeoTubes.jar
 
 ## Features
 

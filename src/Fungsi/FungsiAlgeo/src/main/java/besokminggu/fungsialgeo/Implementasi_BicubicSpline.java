@@ -183,7 +183,15 @@ public class Implementasi_BicubicSpline {
         }
         return sum;
     }
-
+    
+    static BufferedImage after_Image;
+    
+    public static void saveImage (String outputPath) throws IOException{
+        File outputFile = new File(outputPath);
+        String format = "JPG";
+        ImageIO.write(after_Image, format, outputFile);
+    }
+    
     private static int BicubicInterpolation(BufferedImage image, double x, double y) { // A method to calculate the Bicubic function
         // Make the coordinate x,y into integer 
         int startX = (int) x;

@@ -7,7 +7,7 @@ package besokminggu.algeotubes;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
-import besokminggu.fungsialgeo.Determinan;
+import besokminggu.Fungsi.Determinan;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,11 +19,11 @@ public class DETDeterminanMatriksSegitiga extends javax.swing.JFrame {
     /**
      * Creates new form DETDeterminanMatriksSegitiga
      */
-    String hasil;
+    
     public DETDeterminanMatriksSegitiga() {
         initComponents();
-        hasil = String.valueOf(Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"Gauss"));
-        jTextArea1.setText(hasil);
+        AlgeoTubes.hasil = String.valueOf(Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"Gauss"));
+        jTextArea1.setText(AlgeoTubes.hasil);
     }
 
     /**
@@ -124,7 +124,7 @@ public class DETDeterminanMatriksSegitiga extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        AlgeoTubes.saveFile(hasil);
+        AlgeoTubes.saveFile(AlgeoTubes.hasil);
     }//GEN-LAST:event_jButton2ActionPerformed
     public static void closeAllWindows() {
         Input.ResetState();
