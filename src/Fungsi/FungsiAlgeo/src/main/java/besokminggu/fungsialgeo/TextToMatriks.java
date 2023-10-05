@@ -37,16 +37,34 @@ public class TextToMatriks {
                         temp1 += temp.charAt(k);
                     }
                     // System.out.println(temp1);
-                    matrix[i][j] = Double.parseDouble(temp1);
+                    try {
+                        matrix[i][j] = Double.parseDouble(temp1);
+                    } catch (NumberFormatException e) {
+                        double[][] mwrong = new double[1][1];
+                        mwrong[0][0] = 109105110103103117.1;
+                        return mwrong;
+                    }
                     temp1 = "";
                     for(k= k+1; k<temp.length(); k++){
                         temp1 += temp.charAt(k);
                     }
                     // System.out.println(temp1);
-                    matrix[i][j] /= Double.parseDouble(temp1);
+                    try {
+                        matrix[i][j] /= Double.parseDouble(temp1);
+                    } catch (NumberFormatException e) {
+                        double[][] mwrong = new double[1][1];
+                        mwrong[0][0] = 109105110103103117.1;
+                        return mwrong;
+                    }
 
                 } else {
-                    matrix[i][j] = Double.parseDouble(temp);
+                    try {
+                        matrix[i][j] = Double.parseDouble(temp);
+                    } catch (NumberFormatException e) {
+                        double[][] mwrong = new double[1][1];
+                        mwrong[0][0] = 109105110103103117.1;
+                        return mwrong;
+                    }
                 }
                 j++;
                 temp = "";
