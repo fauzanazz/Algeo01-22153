@@ -14,10 +14,6 @@ import java.awt.event.WindowEvent;
  */
 public class InterpolasiBicubicSpline extends javax.swing.JFrame {
     
-    private static double a00, a01, a02, a03;
-    private static double a10, a11, a12, a13;
-    private static double a20, a21, a22, a23;
-    private static double a30, a31, a32, a33;
     /**
      * Creates new form InterpolasiBicubicSpline
      */
