@@ -11,7 +11,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import besokminggu.fungsialgeo.TextToMatriks;
+import besokminggu.Fungsi.TextToMatriks;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,7 +78,6 @@ public class Input extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("File");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -86,10 +85,8 @@ public class Input extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(66, 187, -1, -1));
 
         jLabel2.setText("No file choosed");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 153, -1, -1));
 
         jButton3.setText("Import File");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +94,6 @@ public class Input extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 117, -1, 34));
 
         jButton4.setText("Back");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -105,7 +101,6 @@ public class Input extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(338, 268, -1, -1));
 
         jTextField1.setText("0");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -155,29 +150,65 @@ public class Input extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jButton2))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 117, -1, 93));
-
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
         jLabel3.setText("Pilih Input");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 35, -1, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(221, 221, 221)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel3)
+                .addGap(49, 49, 49)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -211,9 +242,37 @@ public class Input extends javax.swing.JFrame {
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (returnVal == JFileChooser.APPROVE_OPTION && AlgeoTubes.ImplementasiInterpolasiBicubicSpline != 1) {
-            AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
+        AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
+        if (returnVal == JFileChooser.APPROVE_OPTION && (AlgeoTubes.InterpolasiBicubicSpline == 1 || AlgeoTubes.InterpolasiPolinom == 1)) {
             if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.0){
+                JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                double[][] tempmat = new double[AlgeoTubes.matriksinput.length-1][AlgeoTubes.matriksinput[0].length];
+                AlgeoTubes.x = AlgeoTubes.matriksinput[AlgeoTubes.matriksinput.length-1][0];
+                AlgeoTubes.y = AlgeoTubes.matriksinput[AlgeoTubes.matriksinput.length-1][1];
+                
+                for (int i=0;i<AlgeoTubes.matriksinput.length-1;i++){
+                    for (int j=0;j<AlgeoTubes.matriksinput[0].length;j++){
+                        tempmat[i][j] = AlgeoTubes.matriksinput[i][j];
+                    }
+                }
+                AlgeoTubes.matriksinput = new double[tempmat.length][tempmat[0].length];
+                for (int i=0;i<tempmat.length;i++){
+                    for (int j=0;j<tempmat[0].length;j++){
+                        AlgeoTubes.matriksinput[i][j] = tempmat[i][j];
+                    }
+                }
+                System.out.println(AlgeoTubes.x);
+                try {
+                    afterInput(false, false, false);
+                } catch (IOException ex) {
+                    Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } else if (returnVal == JFileChooser.APPROVE_OPTION && AlgeoTubes.ImplementasiInterpolasiBicubicSpline != 1) {
+            if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.0){
+                JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.1){
                 JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 boolean square = AlgeoTubes.matriksinput.length == AlgeoTubes.matriksinput[0].length;
@@ -225,23 +284,9 @@ public class Input extends javax.swing.JFrame {
                     Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        } else if (returnVal == JFileChooser.APPROVE_OPTION && (AlgeoTubes.InterpolasiBicubicSpline == 1 || AlgeoTubes.RegresiLinearBerganda == 1 || AlgeoTubes.InterpolasiPolinom == 1)) {
-            if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.0){
-                JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
-                AlgeoTubes.x = SpecialInput.getx();
-                AlgeoTubes.y = SpecialInput.getx();
-                System.out.println(AlgeoTubes.x);
-                try {
-                    afterInput(false, false, false);
-                } catch (IOException ex) {
-                    Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }else if (returnVal == JFileChooser.APPROVE_OPTION){
-            AlgeoTubes.pathfile = filename;
+        } else if (returnVal == JFileChooser.APPROVE_OPTION){
             AlgeoTubes.x = SpecialInput.getx();
+            AlgeoTubes.pathfile = filename;
             try {
                 afterInput(false, false, false);
             } catch (IOException ex) {

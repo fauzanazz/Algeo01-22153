@@ -11,14 +11,20 @@ package besokminggu.fungsialgeo;
 public class InterpolasiPolinom {
     
     public static String getPolinomOutput(double[][] matrix, double x){
+        String output = "F(x) = ";
         double[][] matriks_polinom = pointToFungsiInterpolasi(matrix);
         SPL.Gauss_Elimination(matriks_polinom);
         double[][] matriks_penyelesaian = SPLSolutionMatrix(matriks_polinom);
         double hasil = 0;
         for (int i=0;i<matriks_penyelesaian.length;i++){
             hasil += matriks_penyelesaian[i][0] * Math.pow(x,i);
+            if (i != matriks_penyelesaian.length-1){
+                output += String.format("%fx^%d+ ", matriks_penyelesaian[i][0],i);
+            } else {
+                output += String.format("%f", matriks_penyelesaian[i][0]);
+            }
         }
-        String output = String.format("f(%.3f) = %.4f", x, hasil);
+        output += String.format("\nf(%.3f) = %.4f", x, hasil);
         return output;
     }
     

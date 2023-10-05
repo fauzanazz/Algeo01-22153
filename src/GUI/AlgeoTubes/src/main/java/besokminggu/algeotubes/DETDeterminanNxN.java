@@ -17,11 +17,11 @@ public class DETDeterminanNxN extends javax.swing.JFrame {
     /**
      * Creates new form DETDeterminanNxN
      */
-    String hasil;
+
     public DETDeterminanNxN() {
         initComponents();
-        hasil = String.valueOf(besokminggu.fungsialgeo.Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"NxN"));
-        jTextArea1.setText(hasil);
+        AlgeoTubes.hasil = String.valueOf(besokminggu.Fungsi.Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"NxN"));
+        jTextArea1.setText(AlgeoTubes.hasil);
     }
 
     /**
@@ -136,7 +136,7 @@ public class DETDeterminanNxN extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        AlgeoTubes.saveFile(hasil);
+        AlgeoTubes.saveFile(AlgeoTubes.hasil);
     }//GEN-LAST:event_jButton2ActionPerformed
     public void close(){
         WindowEvent closeWindow = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
