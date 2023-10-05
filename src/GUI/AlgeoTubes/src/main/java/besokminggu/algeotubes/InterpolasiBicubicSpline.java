@@ -19,10 +19,10 @@ public class InterpolasiBicubicSpline extends javax.swing.JFrame {
      */
     public InterpolasiBicubicSpline() {
         initComponents();
-        besokminggu.fungsialgeo.InterpolasiBicubicSpline.setMatrix(AlgeoTubes.matriksinput);
-        String hasil = String.valueOf(besokminggu.fungsialgeo.InterpolasiBicubicSpline.getBicubicOutput(AlgeoTubes.x, AlgeoTubes.y));
+        besokminggu.Fungsi.InterpolasiBicubicSpline.setMatrix(AlgeoTubes.matriksinput);
+        String hasil = String.valueOf(besokminggu.Fungsi.InterpolasiBicubicSpline.getBicubicOutput(AlgeoTubes.x, AlgeoTubes.y));
         jTextField1.setText(String.valueOf(hasil));
-        jTextArea2.setText(besokminggu.fungsialgeo.InterpolasiBicubicSpline.OutputMX());
+        jTextArea2.setText(besokminggu.Fungsi.InterpolasiBicubicSpline.OutputMX());
     }
 
     /**

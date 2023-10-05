@@ -26,7 +26,7 @@ public class ImplementasiBicubicSpline extends javax.swing.JFrame {
      */
     public ImplementasiBicubicSpline() throws IOException {
         initComponents();
-        besokminggu.fungsialgeo.Implementasi_BicubicSpline.ImageScaler(AlgeoTubes.pathfile,AlgeoTubes.x);
+        besokminggu.Fungsi.Implementasi_BicubicSpline.ImageScaler(AlgeoTubes.pathfile,AlgeoTubes.x);
     }
 
     /**
@@ -119,7 +119,7 @@ public class ImplementasiBicubicSpline extends javax.swing.JFrame {
                 filePath += ".jpg";
             }
             try {
-                besokminggu.fungsialgeo.Implementasi_BicubicSpline.saveImage(filePath);
+                besokminggu.Fungsi.Implementasi_BicubicSpline.saveImage(filePath);
                 // Create a new FileWriter object with the selected file path as the constructor parameter.
             } catch (IOException ex) {
                 Logger.getLogger(ImplementasiBicubicSpline.class.getName()).log(Level.SEVERE, null, ex);

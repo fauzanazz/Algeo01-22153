@@ -19,7 +19,7 @@ public class RegresiLinierBerganda extends javax.swing.JFrame {
      */
     public RegresiLinierBerganda() {
         initComponents();
-        AlgeoTubes.hasil = besokminggu.fungsialgeo.RegresiLinierBerganda.RLB(AlgeoTubes.matriksinput);
+        AlgeoTubes.hasil = besokminggu.Fungsi.RegresiLinierBerganda.RLB(AlgeoTubes.matriksinput);
         jTextArea1.setText(AlgeoTubes.hasil);
     }
 

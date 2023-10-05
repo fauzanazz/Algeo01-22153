@@ -7,7 +7,7 @@ package besokminggu.algeotubes;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
-import besokminggu.fungsialgeo.Determinan;
+import besokminggu.Fungsi.Determinan;
 import javax.swing.JOptionPane;
 
 /**

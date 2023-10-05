@@ -20,7 +20,7 @@ public class DETDeterminandenganKofaktor extends javax.swing.JFrame {
 
     public DETDeterminandenganKofaktor() {
         initComponents();
-        AlgeoTubes.hasil = String.valueOf(besokminggu.fungsialgeo.Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"Kofaktor"));
+        AlgeoTubes.hasil = String.valueOf(besokminggu.Fungsi.Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"Kofaktor"));
         jTextArea1.setText(AlgeoTubes.hasil);
     }
 

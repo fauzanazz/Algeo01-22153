@@ -20,7 +20,7 @@ public class DETDeterminanNxN extends javax.swing.JFrame {
 
     public DETDeterminanNxN() {
         initComponents();
-        AlgeoTubes.hasil = String.valueOf(besokminggu.fungsialgeo.Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"NxN"));
+        AlgeoTubes.hasil = String.valueOf(besokminggu.Fungsi.Determinan.getDeterminanOutput(AlgeoTubes.matriksinput,"NxN"));
         jTextArea1.setText(AlgeoTubes.hasil);
     }
 

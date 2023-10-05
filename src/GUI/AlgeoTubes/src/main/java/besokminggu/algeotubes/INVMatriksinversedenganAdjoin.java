@@ -21,7 +21,7 @@ public class INVMatriksinversedenganAdjoin extends javax.swing.JFrame {
     public INVMatriksinversedenganAdjoin() {
         initComponents();
         
-        AlgeoTubes.hasil = String.valueOf(besokminggu.fungsialgeo.Inverse.getInverseOutput(AlgeoTubes.matriksinput,"Adjoin"));
+        AlgeoTubes.hasil = String.valueOf(besokminggu.Fungsi.Inverse.getInverseOutput(AlgeoTubes.matriksinput,"Adjoin"));
         jTextArea1.setText(AlgeoTubes.hasil);
     }
 

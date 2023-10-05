@@ -19,7 +19,7 @@ public class INVMetodematriksBalikan extends javax.swing.JFrame {
      */
     public INVMetodematriksBalikan() {
         initComponents();
-        AlgeoTubes.hasil = besokminggu.fungsialgeo.Inverse.getInverseOutput(AlgeoTubes.matriksinput,"Identity");
+        AlgeoTubes.hasil = besokminggu.Fungsi.Inverse.getInverseOutput(AlgeoTubes.matriksinput,"Identity");
         jTextArea1.setText(AlgeoTubes.hasil);
     }
 
