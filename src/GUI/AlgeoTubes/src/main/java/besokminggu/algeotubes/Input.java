@@ -218,8 +218,13 @@ public class Input extends javax.swing.JFrame {
                 AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
                 double[][] tempmat = new double[AlgeoTubes.matriksinput.length-1][AlgeoTubes.matriksinput[0].length];
                 AlgeoTubes.x = AlgeoTubes.matriksinput[AlgeoTubes.matriksinput.length-1][0];
-                AlgeoTubes.y = AlgeoTubes.matriksinput[AlgeoTubes.matriksinput.length-1][0];
-                for (int i=0;i<AlgeoTubes.matriksinput.length)
+                AlgeoTubes.y = AlgeoTubes.matriksinput[AlgeoTubes.matriksinput.length-1][1];
+                for (int i=0;i<AlgeoTubes.matriksinput.length;i++){
+                    for (int j=0;j<AlgeoTubes.matriksinput[0].length;j++){
+                        tempmat[i][j] = AlgeoTubes.matriksinput[i][j];
+                    }
+                }
+                AlgeoTubes.matriksinput = tempmat;
                 System.out.println(AlgeoTubes.x);
                 try {
                     afterInput(false, false, false);
