@@ -209,10 +209,14 @@ public class InputMatriksKeyboard extends javax.swing.JFrame {
         if (AlgeoTubes.InterpolasiBicubicSpline == 1) {
             AlgeoTubes.x = SpecialInput.getx();
             AlgeoTubes.y = SpecialInput.gety();
-            try {
-               afterInput(false, false, false);
-            } catch (IOException ex) {
-                Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+            if (nMatrix == 4 && mMatrix == 4 ){
+                try {
+                    afterInput(false, false, false);
+                 } catch (IOException ex) {
+                     Logger.getLogger(Input.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Udah lah bang jangan aneh2, emang harus 4.", "Duar you trigger an easter egg!", JOptionPane.ERROR_MESSAGE);
             }
         } else if (AlgeoTubes.ImplementasiInterpolasiBicubicSpline == 1 || AlgeoTubes.InterpolasiPolinom == 1) {
             AlgeoTubes.x = SpecialInput.getx();

@@ -1,12 +1,19 @@
 package besokminggu.fungsialgeo;
 
 public class RegresiLinierBerganda {
-    public static void main (String[] args){
-        RLB(TextToMatriks.readMatrixFromFile("Algeo/filename.txt"));
-    }
 
     public static String RLB(double[][] matrix){
-        double[][] m = NEE(matrix);
+        double[] x = new double[matrix[0].length-1];
+        for (int i=0; i<matrix[0].length-1; i++){
+            x[i] = matrix[matrix.length-1][i];
+        }
+        double[][] m = new double[matrix.length-1][matrix[0].length];
+        for (int i=0; i<matrix.length-1; i++){
+            for (int j=0; j<matrix[0].length; j++){
+                m[i][j] = matrix[i][j];
+            }
+        }
+        m = NEE(matrix);
         String sOut = "Didapat nilai masing-masing b adalah sebagai berikut:\n"; 
         String temp = "";
         String[] temp_value = new String[m.length];
@@ -15,7 +22,6 @@ public class RegresiLinierBerganda {
 
         // TextToMatriks.printMatrix(m);
         String s = SPL.SPLGaussJordanFromMatrix(m);
-
         for (char cc: s.toCharArray()){
             if (is_X){
                 cc = (char)(cc-1);
@@ -41,8 +47,21 @@ public class RegresiLinierBerganda {
             sOut += temp_value[i] + " X" + String.valueOf(i);
             if (i < temp_value.length-1) sOut += " +";
         }
-
-        return(sOut);
+        sOut += "\n\nUntuk menaksir nilai";
+        for (int i=0; i<matrix[0].length-1; i++){
+            sOut += String.format(" X%d = %.3f", i+1, x[i]);
+            if (i != matrix[0].length-2){
+                sOut += ",";
+            }
+        }
+        sOut += " akan didapat nilai Y = ";
+        double result = Double.parseDouble(temp_value[0].strip());
+        for (int i=1; i<temp_value.length; i++){
+            result += Double.parseDouble(temp_value[i].strip())*x[i-1];
+        }
+        sOut += String.format("%.3f", result);
+        
+        return sOut;
     }
     
     private static double[][] NEE(double[][] matrix){
@@ -78,18 +97,19 @@ public class RegresiLinierBerganda {
                 }
             }
         }
+
         for (int i=0; i<m.length; i++){
             double temp = 0;
             if (i==0){
                 for (int k=0; k<n; k++){
-                    temp += (matrix[k][3]);
+                    temp += (matrix[k][matrix[i].length-1]);
                 }
             } else {
                 for (int k=0; k<n; k++){
-                    temp += (matrix[k][i-1]*matrix[k][3]);
+                    temp += (matrix[k][i-1]*matrix[k][matrix[i].length-1]);
                 }
             }
-            m[i][4] = temp;
+            m[i][matrix[0].length] = temp;
         }
         return m;
     }

@@ -15,27 +15,54 @@ public class SPL {
 
     
     /* ------------------------SPL From Cramer------------------------ */
-    public String SPLCramer(double[][] matrix, int matrix_size, int penyelesaian) {
-        // Cari Determinan dari matrix ini.
-        double det = Determinan.determinangauss(matrix);
-
-        // Jika determinan tidak ada, maka SPL tidak memiliki solusi.
-        if (det == 0) {
-            return "0";
+    public static String SPLCramer(double[][] matrix) {
+        double[][] matriks_temp = new double[matrix.length][matrix[0].length-1];
+        String output = "";
+        for (int i=1; i<matrix[0].length; i++){
+            
+            for (int row = 0 ; row < matrix.length ; row++) {
+                for (int col = 0 ; col < matrix[0].length-1 ; col++) {
+                    matriks_temp[row][col] = matrix[row][col];
+                }
+            }
+            
+            
+            // Cari Determinan dari matrix ini.
+            double det = Determinan.determinangauss(matriks_temp);
+            
+            
+            // Jika determinan tidak ada, maka SPL tidak memiliki solusi.
+            if (det == 0) {
+                output += String.format("Tidak bisa ditemukan solusi untuk x%d menggunakan cramer karena det = 0\n",i);
+                continue;
+            }
+            
+            
+            for (int row = 0 ; row < matrix.length ; row++) {
+                for (int col = 0 ; col < matrix[0].length-1 ; col++) {
+                    matriks_temp[row][col] = matrix[row][col];
+                }
+            }
+            
+            
+            // Ubah matrix menjadi matrix cramer
+            for (int j = 0; j < matrix.length;j++) {
+                matriks_temp[j][i-1] = matrix[j][matrix[0].length-1];
+            }
+            
+            
+            // Cari Determinan matrix cramer
+            double det_cramer = Determinan.determinangauss(matriks_temp);
+            System.out.printf("Det %f ", det_cramer);
+            System.out.print("\n");
+            System.out.print("\n");
+            
+            
+            // Cari solusi dari SPL
+            double solusi = det_cramer/det;
+            output += String.format("x%d = %.3f\n",i, solusi);
         }
-        
-        // Ubah matrix menjadi matrix cramer
-        for (int i = 0 ; i < matrix_size ; i++) {
-            matrix[i][penyelesaian-1] = matrix[i][matrix_size-1];
-        }
-
-        // Cari Determinan matrix cramer
-        double det_cramer = Determinan.determinangauss(matrix);
-
-        // Cari solusi dari SPL
-        double solusi = det_cramer/det;
-        
-        return String.valueOf(solusi);
+        return output;
     }
     /* ------------------------SPL From Cramer------------------------ */
     
@@ -43,17 +70,43 @@ public class SPL {
 
 
     /* ------------------------SPL From Inverse------------------------ */
-    public static String String_Converter(double[][] matrix){ // print the matrix\
-        String sKeluar = "";
-        for(int i = 0; i < matrix.length; i++){
-            for(int j = 0; j < matrix[i].length; j++){
-                sKeluar += String.format("%.3f ",matrix[i][j]);
+    public static String SPL_From_Inverse(double[][] matrix_input){ // The Main function of getting SPL result from AX = B, X = A^-1 * B 
+        // exception(matrix_input);
+        double[][] matriks_A = new double[matrix_input.length][matrix_input[0].length -1]; //Make the non-Augmented Matriks
+        double[][] matriks_A2 = new double[matrix_input.length][matrix_input[0].length -1]; //Make the non-Augmented Matriks
+        double[][] matriks_B = new double[matrix_input.length][1]; //The Last Row
+
+        int row_length = matrix_input.length;
+        int col_length = matrix_input[0].length-1;
+
+        // Matriks for A
+        for(int i = 0; i < row_length; i++){
+            for(int j = 0; j < col_length;j++){
+                matriks_A[i][j] = matrix_input[i][j];
+                matriks_A2[i][j] = matrix_input[i][j];
             }
         }
 
-        return  sKeluar;
+        // Matriks for B
+        for(int i = 0; i < col_length; i++){
+            matriks_B[i][0] = matrix_input[i][col_length];
+        }
+            
+        //Cek exception
+        if(Determinan.determinangauss(matriks_A2) == 0.0){
+            return "Solusi tidak dapat dicari dengan menggunakan metode ini karena Determinannya 0";
+        }
+
+        // Inverse Matriks A
+        matriks_A = Inverse.getInverseFromAdjoin(matriks_A);
+        
+        // A * X = B, X  = Inverse(A) * B
+        matriks_B = perkalian_Matriks(matriks_A, matriks_B);
+        
+        return String_Converter(matriks_B);
     }
-    private static double[][] perkalian_Matriks(double[][] matriks1, double[][] matriks2){ // Do matriks1 * matriks2 for SPL Purposes
+    
+    public   static double[][] perkalian_Matriks(double[][] matriks1, double[][] matriks2){ // Do matriks1 * matriks2 for SPL Purposes
         double[][] matriks_copy = new double[matriks1.length][matriks2[0].length]; 
         for(int i = 0 ; i < matriks1.length; i++){
             for(int j = 0; j < matriks2.length;j++){
@@ -64,33 +117,21 @@ public class SPL {
         }
         return matriks_copy;
     }
-    public static String SPL_From_Inverse(double[][] matrix_input){ // The Main function of getting SPL result from AX = B, X = A^-1 * B 
-        // exception(matrix_input);
-        double[][] matriks_A = new double[matrix_input.length][matrix_input[0].length -1]; //Make the non-Augmented Matriks
-        double[][] matriks_B = new double[matrix_input.length][1]; //The Last Row
 
-        int row_length = matrix_input.length;
-        int col_length = matrix_input[0].length-1;
-
-        // Matriks for A
-        for(int i = 0; i < row_length; i++){
-            for(int j = 0; j < col_length;j++){
-                matriks_A[i][j] = matrix_input[i][j];
+    public static String String_Converter(double[][] matrix){ // print the matrix\
+        String sKeluar = "";
+        for(int i = 0; i < matrix.length; i++){
+            for(int j = 0; j < matrix[i].length; j++){
+                sKeluar += "x";
+                sKeluar += i+1 + ": ";
+                sKeluar += String.format("%.3f ",matrix[i][j]);
+            }
+            if(i != matrix.length-1){
+                sKeluar += "\n";
             }
         }
 
-        // Matriks for B
-        for(int i = 0; i < col_length; i++){
-            matriks_B[i][0] = matrix_input[i][col_length];
-        }
-
-        // Inverse Matriks A
-        matriks_A = Inverse.get_Inverse_Matriks_fromIdentity(matriks_A);
-
-        // A * X = B, X  = Inverse(A) * B
-        matriks_B = perkalian_Matriks(matriks_A, matriks_B);
-        
-        return String_Converter(matriks_B);
+        return  sKeluar;
     }
     /* ------------------------SPL From Inverse------------------------ */
 
@@ -100,7 +141,7 @@ public class SPL {
 
 
      /* ------------------------SPL From Gauss Elimination------------------------ */
-        private static void Multipy_Operation(double[][] matrix, int row_will_be_changed, int column_will_be_changed){ // multiply the desired row_will_be_changed and column_will_be_changed so the result is 1
+     private static void Multipy_Operation(double[][] matrix, int row_will_be_changed, int column_will_be_changed){ // multiply the desired row_will_be_changed and column_will_be_changed so the result is 1
         double x = 1/matrix[row_will_be_changed][column_will_be_changed];
         for(int i = 0; i < matrix[0].length;i++){
             matrix[row_will_be_changed][i] *= x;
@@ -152,7 +193,6 @@ public class SPL {
              matrix[row_will_be_changed][i] = temp[0][i];
         }
     }
-
     public static void Gauss_Elimination(double[][] matriks){ // Do the normal Gauss Elimination
 
         int k = 0; //index that count if a matriks[row][column] == 0
@@ -167,26 +207,27 @@ public class SPL {
                     Reduce_Operation(matriks, j, i+k, i); //Reducing matriks[j][i+k] into 0, and applied to the rest of its column
                 }
             }
-            Check_Exception(matriks); // Check any row_exception, row_exception == 0, because the matrix is still in its original
+            if(Check_Exception(matriks) == 3 || Check_Exception(matriks) == 2){// Check any row_exception
+                break;
             }
         }
-
-    public static class ParametricVariable{ // Creating a datatype for easier parametric calculation
+    }
+     public static class ParametricVariable{ // Creating a datatype for easier parametric calculation
         private double NonParamValue; //Used for any non-parametric variable
         private double[] ParamValue; //Used only for Parameters variable
-        private char[] valueRepresentation; //Used as parametric representation (Ex: a,b,c)
+        private String[] valueRepresentation; //Used as parametric representation (Ex: a,b,c)
 
     
-        public ParametricVariable(double NonParamValue, double[] ParamValue, char[] valueRepresentation, int zero_solution){ //Datatype Constructor
+        public ParametricVariable(double NonParamValue, double[] ParamValue, String[] valueRepresentation, int zero_solution){ //Datatype Constructor
             this.NonParamValue = NonParamValue;
             this.ParamValue = new double[zero_solution];
-            this.valueRepresentation = new char[zero_solution];
+            this.valueRepresentation = new String[zero_solution];
         }
 
-        private void printVariable(int x_counter, int Params_Counter){ // Print all the Parametric Result, x_counter used for what x is currently printed, Params_counter used for the amount of ParamsValue that can be printed.
+        private String printVariable(int x_counter, int Params_Counter){ // Print all the Parametric Result, x_counter used for what x is currently printed, Params_counter used for the amount of ParamsValue that can be printed.
             int zero_counter = 0; // 0 counter for Parametervalue, it is used to print 0, nonparametervalue and parametervalue has all 0 of its value
             String sKeluar = "";
-            sKeluar += "x- "+ x_counter +" : "; 
+            sKeluar += "x"+ x_counter +": "; 
 
             if(this.NonParamValue != 0){
                 sKeluar += String.format("%.03f",this.NonParamValue);
@@ -201,66 +242,31 @@ public class SPL {
                     }
                 }
                 else if(this.ParamValue[i] < 0){
-                    sKeluar += String.format("%.03f",this.ParamValue[i]);
+                    if(this.ParamValue[i] == -1){
+                        sKeluar += "-";
+                    }
+                    else{
+                        sKeluar += String.format("%.03f",this.ParamValue[i]);
+                    }
                 }
                 if(this.ParamValue[i] == 1 && this.NonParamValue != 0){
-                    sKeluar += " +";
+                    sKeluar += "+";
                 }
                 if(this.ParamValue[i] != 0){
-                    sKeluar += this.valueRepresentation;
+                    sKeluar += this.valueRepresentation[i];
                 }
                 else if(this.ParamValue[i] == 0){
                     zero_counter++;
                 }
             }
             if(zero_counter==Params_Counter && this.NonParamValue == 0){
-                sKeluar = String.valueOf(0);
+                sKeluar += String.valueOf(0);
             }
-            System.out.println(sKeluar);
+            return sKeluar;
         }
 
     }
 
-    private String[] getVariableList(ParametricVariable params, int Params_Counter,int Variable_Length){ // Print all the Parametric Result, x_counter used for what x is currently printed, Params_counter used for the amount of ParamsValue that can be printed.
-        int zero_counter = 0; // 0 counter for Parametervalue, it is used to print 0, nonparametervalue and parametervalue has all 0 of its value
-        String sKeluar = "";
-        String[] finale = new String[Variable_Length];
-        for(int j = 0; j < Variable_Length ; j++){
-            sKeluar = "";
-            if(params.NonParamValue != 0){
-                sKeluar += String.format("%.03f",params.NonParamValue);
-            }
-            for (int i = 0; i < Params_Counter; i++) { //Logic for Params_value Printing
-                if(params.ParamValue[i] > 0 && params.ParamValue[i] != 1){
-                    if(params.NonParamValue != 0){
-                        sKeluar += String.format(" + %.03f",params.ParamValue[i]);
-                    }
-                    else{
-                        sKeluar += String.format("%.03f",params.ParamValue[i]);
-                    }
-                }
-                else if(params.ParamValue[i] < 0){
-                    sKeluar += String.format("%.03f",params.ParamValue[i]);
-                }
-                if(params.ParamValue[i] == 1 && params.NonParamValue != 0){
-                    sKeluar += " +";
-                }
-                if(params.ParamValue[i] != 0){
-                    sKeluar += params.valueRepresentation;
-                }
-                else if(params.ParamValue[i] == 0){
-                    zero_counter++;
-                }
-            }
-            if(zero_counter==Params_Counter && params.NonParamValue == 0){
-                sKeluar = String.valueOf(0);
-            }
-            finale[j] = sKeluar;      
-        }
-        return finale;
-        
-    }
-    
     private static int zero_col_counter(double[][] matriks){ // Check the amount of rows that all its column is 0, for Parametric Calculation
        int sum = 0;
         for(int i = 0; i < matriks[0].length; i++){ //Checking for Rows of 0
@@ -293,15 +299,17 @@ public class SPL {
         }
         return sum;
     }
-    private static void parametric_Solution(double[][] matrix, int zero_rows, int zero_cols){ //Calculation for Parametric Exception
+    private static String parametric_Solution(double[][] matrix, int zero_rows, int zero_cols){ //Calculation for Parametric Exception
         int length_of_parameter = zero_cols+zero_rows; // Amount
         int row = matrix.length; // Length of row
         int col = matrix[0].length; // Length of Column
+        String result = "";
         
         // Create List of Alphabet as a variable Representative
-        char[] alphabet = new char[26]; 
+        String[] alphabet = new String[26]; 
         for(int i = 97; i < (123) ; i++){
-            alphabet[i % 97] = (char) i; 
+            alphabet[i % 97] = ""; 
+            alphabet[i % 97] += (char) i; 
         }
 
         // Creating the base of the SPL_Solution using Parametric Datatype
@@ -310,7 +318,7 @@ public class SPL {
         for(int i = 0; i < col-1;i++){
             int sum_zero = 0; //used as row_index for column with full 0 on its row
             double[] paramsValue = new double[zero_rows + zero_cols]; // Create a new array for each instance
-            char[] alphabetCopy = Arrays.copyOf(alphabet, alphabet.length); // Create a new array for each variables[i]
+            String[] alphabetCopy = Arrays.copyOf(alphabet, alphabet.length); // Create a new array for each variables[i]
             variables[i] = new ParametricVariable(0, paramsValue, alphabetCopy, zero_rows + zero_cols);
             for (int j = 0; j < length_of_parameter; j++) { // Default value of ParamValue and valueRepresentation
                 variables[i].ParamValue[j] = 0;  
@@ -322,7 +330,7 @@ public class SPL {
                 }
                 else{
                     variables[i].ParamValue[zero_rows+w] = 1;
-                    variables[i].valueRepresentation[zero_rows+w] = alphabet[zero_rows+w];
+                    variables[i].valueRepresentation[zero_rows+w] = "x"+(i+1);
                     w++;
                     break;
                 }
@@ -366,19 +374,22 @@ public class SPL {
                 rows_tracker++;
                 variables[variables.length - rows_tracker].ParamValue[index_tracker] = 1;        
                 variables[variables.length - rows_tracker].valueRepresentation[index_tracker] = alphabet[index_tracker];
-                index_tracker++;
-                continue;                
+                index_tracker++;                
             }
 
         }
         for(int z = 0; z < variables.length; z++){ //Print the Solution
-            variables[z].printVariable(z+1, length_of_parameter);
+            result += variables[z].printVariable(z+1, length_of_parameter);
+            if(z != variables.length-1){
+                result+="\n";
+            }
         }
+        return result;
     }
     
     
-    private static void Check_Exception(double[][] matriks){ //Checking Exception
-        int accept = 0;
+    private static int Check_Exception(double[][] matriks){ //Checking Exception
+        int accept;
         if(matriks[matriks.length-1][matriks[0].length-1] == 0){ //Check for Parametric Exception
             accept = 2;
             for(int i = 0; i < matriks[0].length-1;i++){
@@ -395,52 +406,54 @@ public class SPL {
                 }
             }
         }
-        if(accept == 3){
-            System.err.println("System has no Solutions");
-            System.exit(0);
-        }
-        else if(accept == 2 ){
-            parametric_Solution(matriks,zero_rows_counter(matriks),zero_col_counter(matriks));
-            System.exit(0);
-        }
+        return accept;
     }
 
-    public String SPL_From_Gauss(double[][] matriks){ //Spl Solutions
+    public static String SPL_From_Gauss(double[][] matriks){ //Spl Solutions
         Gauss_Elimination(matriks); //Gauss Elimination on current Matriks
         double[][] m; 
+        
 
         //Make a m that is a square matriks without augmented
-        if (matriks.length > matriks[0].length){
+        if (matriks.length > matriks[0].length -1){
            m = new double[matriks.length][matriks[0].length];
         } else {
             m = new double[matriks[0].length-1][matriks[0].length]; 
         }
 
         for (int i=0; i<matriks.length; i++){
-            for (int j=0; j<matriks[i].length; j++){
-                m[i][j] = matriks[i][j];
-            }
+            System.arraycopy(matriks[i], 0, m[i], 0, matriks[i].length);
         }
         
         //Do a Check_Exception for matrix m
-        Check_Exception(m); 
-
-        //If there are only single solutions
-        int k = 0;
-        double[][] hasil = new double[0][m[0].length-1];
-        for(int i = m.length-1; i > -1; i--){
-           double temp = 0;
-           while (m[i][i] == 0 && (i + k) < m.length){
-               k++;
-           }
-           if(i + k < m.length){
-               for(int j = m.length; j > i ; j--){
-                   temp += m[i][j-1] * hasil[0][j-1];
-               }
-               hasil[0][i] = (1/m[i][i+k]) * (m[i][m[i].length-1] - temp);
-           }
-        };
-        return String_Converter(hasil);
+        switch (Check_Exception(m)) {
+            case 2 -> {
+                // Many Solutions
+                return parametric_Solution(m,zero_rows_counter(m),zero_col_counter(m));
+            }
+            case 3 -> {
+                //No solutions
+                return "System has no Solutions";
+            }
+            default -> {
+                //If there are only single solutions
+                int k = 0;
+                double[][] hasil = new double[m[0].length-1][1];
+                for(int i = m.length-1; i > -1; i--){
+                    double temp = 0;
+                    while (m[i][i] == 0 && (i + k) < m.length){
+                        k++;
+                    }
+                    if(i + k < m.length){
+                        for(int j = m.length; j > i ; j--){
+                            temp += m[i][j-1] * hasil[j-1][0];
+                        }
+                        hasil[i][0] = (1/m[i][i+k]) * (m[i][m[i].length-1] - temp);
+                    }
+                }
+                return String_Converter(hasil);
+            }
+        }
 
     }
     /* ------------------------SPL From Gauss Elimination------------------------ */
@@ -450,11 +463,11 @@ public class SPL {
 
 
     /* ------------------------SPL From Gauss-Jordan-Elimination------------------------ */
-    private static String sOut = "";
+    public static String sOut = "";
 
     public static String SPLGaussJordanFromMatrix(double[][] matrix){
+        sOut = "";
         double[][] m = new double[matrix.length][matrix[0].length];
-
         m = SwapLess0(matrix);
         m = OBE(m);
         SPLSolution(m);
@@ -469,7 +482,7 @@ public class SPL {
         return -1;
     }
     
-    // Util Method
+    // Util Method untuk mendapat total 0 sebelum 1 utama di satu baris 
     private static int[] getTotal0(double[][] matrix){
         int[] sum_0 = new int[matrix.length];
         
@@ -487,6 +500,22 @@ public class SPL {
         }
     
         return sum_0;
+    }
+
+    // Util Method
+    private static int[] getJumping0(int[] sum_0){
+        int[] temp = new int[sum_0.length];
+        for (int i=0; i<sum_0.length; i++){
+            boolean isInList = false;
+            for (int j=0; j<sum_0.length; j++){
+                if (i == sum_0[j]){
+                    isInList = true;
+                    break;
+                }
+            }
+            if (isInList) temp[i] = 1;
+        }
+        return temp;
     }
     
     // Util Method
@@ -568,9 +597,10 @@ public class SPL {
 
     // Print Solution method
     private static void SPLSolution(double[][] matrix){
+        sOut = "";
         int[] sum_0 = getTotal0(matrix);
         double[][] m;
-        if (matrix.length > matrix[0].length){
+        if (matrix.length > matrix[0].length-1){
             m = new double[matrix.length][matrix[0].length];
 
             // fill matrix
@@ -605,6 +635,8 @@ public class SPL {
             }
         }
 
+
+
         // Cek Jenis Solusi
         if (m[m.length-1-sum_0[0]][m[0].length-2] == 1){
             // Solusi tunggal
@@ -622,6 +654,7 @@ public class SPL {
         }
     }
 
+    // mengurangi baris yang kosong
     private static double[][] simplifyMatriks(double[][] matrix, int row){
         double[][] m = new double[row+1][matrix[0].length];
         for (int i=0; i<=row; i++){
@@ -632,20 +665,24 @@ public class SPL {
         return m;
     }
 
+    // menambahkan keluaran Xi ke variable sOut
     private static void getSingleSolution(double[][] matrix,int row){
         for (int j=0; j<matrix.length; j++){
             if (matrix[row][j] == 1) {
-                String s = String.format("X%d = %f", j+1,matrix[row][matrix.length]);
+                String s = String.format("X%d = %.3f", j+1, matrix[row][matrix.length]);
                 sOut += s + "\n";
                 break;
             }
         }
     }
     private static void getParametricSolution(double[][] matrix){
-        int[] sum_0 = getTotal0(matrix);
-        int idxLast = -1;
-        int temp = 112;
-        int temp1 = 112;
+        int[] sum_0 = getTotal0(matrix); // Jumlah 0 perbaris sebelum 1 utama
+        int[] jumping_0 = getJumping0(sum_0); // Array yang berisi 0 jika Xi adalah bilangan real
+        int idxLast = -1; // index terakhir dimana nilai matriks tanpa augmented 1 baris berisi 0 semua
+        int temp = 112; // temp ascii mulai dari p
+        int temp1 = 112; // temp ascii mulai dari p
+
+        // Loop untuk mencari index terakhir tempat nilai matriks tanpa augmented berisi 0 semua di 1 baris
         for (int i=0; i<sum_0.length; i++){
             if (sum_0[i] < matrix[i].length-1){
                 idxLast++;
@@ -654,57 +691,85 @@ public class SPL {
             }
         }
 
+        // Keluaran Misal
         sOut += "Misal: \n";
+        // Jika ada Xi yang berupa bilangan real
+        for (int i = 0; i < sum_0[idxLast]; i++){
+            if (jumping_0[i] == 0){
+                sOut += String.format("X%d = X%d\n", i+1, i+1);
+            }
+        }
+        // Jika ada Xi yang perlu dimisalkan
         for (int j = sum_0[idxLast] + 1; j < matrix.length; j++){
             String s = String.format("X%d = ", j+1);
             sOut += s + (char) temp1 + "\n";
             temp1++;
         }
+
+        // Keluaran Maka
         sOut += "Maka: \n";
+        // Nilai masing-masing Xi yang tidak dimisalkan
         for (int i=0; i<=idxLast; i++){
             String s;
             boolean isKosong;
 
             if (matrix[i][matrix[i].length-1] == 0){
+                // Ketika nilai b (Ax = b) pada baris i adalah 0
                 s = String.format("X%d = ", sum_0[i]+1);
                 isKosong = true;
             } else {
-                s = String.format("X%d = %f", sum_0[i]+1, matrix[i][matrix.length]);
+                // Ketika nilai b (Ax = b) pada baris i tidak 0
+                s = String.format("X%d = %.3f", sum_0[i]+1, matrix[i][matrix.length]);
                 isKosong = false;
             }
             sOut += s;
 
+            // Keluaran untuk semua parametrik
             for (int j=sum_0[idxLast] + 1; j<matrix.length; j++){
                 s="";
                 if (matrix[i][j] < 0){
+                    // Ketika nilai parametrik negatif
                     if (isKosong){
+                        // Ketika nilai b (Ax = b) pada baris i adalah 0
                         if (-1*matrix[i][j] == 1){
+                            // Ketika nilai parametrik adalah 1
                             s = String.format(" ");
                         } else {
-                            s = String.format("%f ", (-1*matrix[i][j]));
+                            // Ketika nilai parametrik bukan 1
+                            s = String.format("%.3f ", (-1*matrix[i][j]));
                         }
                         isKosong = false;
                     } else {
+                        // Ketika nilai b (Ax = b) pada baris i bukan 0
                         if (-1*matrix[i][j] == 1){
+                            // Ketika nilai parametrik adalah 1
                             s = String.format(" + ", (-1*matrix[i][j]));
                         } else {
-                            s = String.format(" + %f ", (-1*matrix[i][j]));
+                            // Ketika nilai parametrik bukan 1
+                            s = String.format(" + %.3f ", (-1*matrix[i][j]));
                         }
                     }
                     s += String.valueOf((char)(temp-1+j-sum_0[idxLast]));
                 } else if (matrix[i][j] > 0){
+                    // Ketika nilai parametrik positif
                     if (isKosong){
+                        // Ketika nilai b (Ax = b) pada baris i adalah 0
                         if (matrix[i][j] == 1){
+                            // Ketika nilai parametrik adalah 1
                             s = String.format("- ");
                         } else {
-                            s = String.format("-%f ", matrix[i][j]);
+                            // Ketika nilai parametrik bukan 1
+                            s = String.format("-%.3f ", matrix[i][j]);
                         }
                         isKosong = false;
                     } else {
+                        // Ketika nilai b (Ax = b) pada baris i bukan 0
                         if (matrix[i][j] == 1){
+                            // Ketika nilai parametrik adalah 1
                             s = String.format(" - ");
                         } else {
-                            s = String.format(" - %f ", matrix[i][j]);
+                            // Ketika nilai parametrik bukan 1
+                            s = String.format(" - %.3f ", matrix[i][j]);
                         }
                     }
                     s += String.valueOf((char)(temp-1+j-sum_0[idxLast]));

@@ -6,12 +6,18 @@ import java.util.Scanner; // Import the Scanner class to read text files
 
 public class TextToMatriks {
 
-    private static double[][] getMatrixFromText(String text){
+     private static double[][] getMatrixFromText(String text){
         // Get row & column
-        int m = 0, n = 1;
+        int m = 0, n = 1, count = 0;
         for (char x: text.toCharArray()) {
             if (x == ' ' && m == 0) n++;
             if (x == '\n') m++;
+            if (x == ' ' || x == '\n') count++;
+        }
+        if (count > m*n){
+            double[][] mwrong = new double[1][1];
+            mwrong[0][0] = 109105110103103117.0;
+            return mwrong;
         }
         
         // Create Empty Matrix & initiate variable
@@ -48,6 +54,7 @@ public class TextToMatriks {
                     j = 0;
                     i++;
                 }
+
             }
         }
 

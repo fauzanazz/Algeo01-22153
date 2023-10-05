@@ -55,7 +55,7 @@ public class Determinan {
                 }else {
                     // Swap row-rows with the row that has a non-zero value
                     for (int j=0; j<n; j++){
-                        double temp = localMatrix[rows][j];
+                        double temp = (-1) * localMatrix[rows][j];
                         localMatrix[rows][j] = localMatrix[i][j];
                         localMatrix[i][j] = temp;
                     }
@@ -75,9 +75,10 @@ public class Determinan {
             }
         }
 
+        
         // Find the double det by multiplying the diagonal elements
         for (i = 0; i < n; i++) {
-        det *= localMatrix[i][i];
+            det *= localMatrix[i][i];
         }
 
         return det;

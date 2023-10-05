@@ -17,9 +17,14 @@ public class Inverse {
     //         System.out.println();
     //     }
     // }
-
+    
+    
     // Start of returning string
-    public static String[][] getInverseOutput(double[][] matriks, String Function){
+    public static String getInverseOutput(double[][] matriks, String Function){
+        double det = Determinan.determinan_kofaktor(matriks);
+        if (det == 0){
+            return "Matrix determinant 0";
+        }
         double[][] matrix = new double[matriks.length][matriks[0].length];
         if (Function == "Adjoin"){
             matrix = getInverseFromAdjoin(matriks);
@@ -27,11 +32,12 @@ public class Inverse {
         } else if (Function == "Identity"){
             matrix = get_Inverse_Matriks_fromIdentity(matriks); 
         } 
-        String[][] sOut = new String[matriks.length][matriks[0].length];
+        String sOut = "";
         for (int i=0; i<matrix.length; i++){
             for (int j=0; j<matrix[i].length; j++){
-                sOut[i][j] = String.format("%.3f",matrix[i][j]);
+                sOut += String.format("%.3f ",matrix[i][j]);
             }
+            sOut += "\n";
         }
         return sOut;
     }
@@ -157,18 +163,10 @@ public class Inverse {
 
 
 
-
+    
     // Start of Inverse Matrix using Matrix Adjoin and Kofaktor
     public static double[][] getInverseFromAdjoin(double[][] matriks){
         double det = Determinan.determinan_kofaktor(matriks);
-        // if (det == 0) {
-        //     sOut += ("Matriks memiliki balikan jika dan hanya jika nilai determinan matriks tidak sama dengan 0!");
-        //     return new double[1][1]; 
-        // }
-        // if (matriks.length != matriks[0].length) {
-        //     sOut += ("Matriks yang diinput bukan merupakan matriks persegi!");
-        //     return new double[1][1]; 
-        // }
         matriks = getKofaktor(matriks);
         matriks = getTranspose(matriks);
         for(int i = 0; i<matriks.length; i++){
