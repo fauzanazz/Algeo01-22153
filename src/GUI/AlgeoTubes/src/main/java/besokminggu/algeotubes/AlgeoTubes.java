@@ -3,19 +3,16 @@
  */
 
 package besokminggu.algeotubes;
-import java.io.File;
 import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  *
  * @author DELL
  */
 
 
-public class AlgeoTubes extends JFrame {
+public class AlgeoTubes{
 
     
     static int SPLEliminasiGauss = 0;
@@ -65,6 +62,7 @@ public class AlgeoTubes extends JFrame {
                 fileWriter.write(output);
 
             } catch (IOException e) {
+                
             }
         }
     }

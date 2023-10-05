@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>besokminggu</groupId>
     <artifactId>AlgeoTubes</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>Final</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
