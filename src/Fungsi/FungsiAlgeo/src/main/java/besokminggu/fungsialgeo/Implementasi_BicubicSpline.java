@@ -13,8 +13,6 @@ import java.io.File; // used for input a file
 import java.io.IOException; // Handle Image Exception
 import javax.imageio.ImageIO; //also for reading and writing images in JPEG or PNG
 import java.awt.*;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import javax.swing.*;
 
 public class Implementasi_BicubicSpline {
@@ -42,23 +40,29 @@ public class Implementasi_BicubicSpline {
         BufferedImage input_Image = ImageIO.read(new File(path));
         return input_Image;
     }
+    static BufferedImage after_Image;
     
+    public static void saveImage (String outputPath) throws IOException{
+        File outputFile = new File(outputPath);
+        String format = "JPG";
+        ImageIO.write(after_Image, format, outputFile);
+    }
     
     public static void ImageScaler(String input_Path, double scale) throws IOException{ // Main function for Scaling image
         BufferedImage originalImage = input_image(input_Path);
         double after_width = originalImage.getWidth() * scale;    
         double after_height = originalImage.getHeight() * scale;
-        BufferedImage Image = new BufferedImage((int) after_width, (int) after_height, BufferedImage.TYPE_INT_RGB); //Initiate the new Image.
+        after_Image = new BufferedImage((int) after_width, (int) after_height, BufferedImage.TYPE_INT_RGB); //Initiate the new Image.
         //Bicubic Spline Interpolation Calculation
         for(int x = 0; x < after_width;x++){
             for(int y = 0; y < after_height;y++){
-                double previous_x = x / (double) scale;
-                double previous_y = y / (double) scale; 
+                double previous_x = x / scale;
+                double previous_y = y / scale; 
                 int InterpolatedResult = BicubicInterpolation(originalImage,previous_x, previous_y);
-                Image.setRGB(x, y, InterpolatedResult);
+                after_Image.setRGB(x, y, InterpolatedResult);
             }
         }
-        displayImage(Image); //To show image.
+        displayImage(after_Image); //To show image.
     }   
     public static double[][] matriksI(BufferedImage image, int current_x, int current_y) { // a Method to get the I matriks, y = D I, I is the value of current pixel position
         double[][] I_matrix = new double[16][1];
@@ -84,22 +88,22 @@ public class Implementasi_BicubicSpline {
 
     public static void state(int n, int[] x, int[] y){ // a methode to get the index for f(x,y), fx(x,y), fy(x,y), fxy(x,y)
         switch(n){
-            case 0 :
+            case 0 -> {
                 x[0] = 0;
                 y[0] = 0;
-                break;
-            case 1 :
+            }
+            case 1 -> {
                 x[0] = 1;
                 y[0] = 0;
-                break;
-            case 2 :
+            }
+            case 2 -> {
                 x[0] = 0;
                 y[0] = 1;
-                break;
-            default :
+            }
+            default -> {
                 x[0] = 1;
                 y[0] = 1;
-                break;
+            }
         }
     }
     public static double[][] matriksD(){ //a method to get the D matriks y = D I
@@ -190,7 +194,7 @@ public class Implementasi_BicubicSpline {
         int startY = (int) y;
 
         //Use the existing Bicubic interpolation
-        double[][] matriks_temp = new double[16][1];
+        double[][] matriks_temp;
         matriks_temp = SPL.perkalian_Matriks(matriksD(),matriksI(image, startX, startY));
         matriks_temp = SPL.perkalian_Matriks(InterpolasiBicubicSpline.constant_inverted(),matriks_temp);
         double interpolatedValue = getBicubicOutput(matriks_temp, x - (int)x, y - (int)y); //then get the value of a. x - (int) x used to get the diffrent of x and (int) x so that it will not overflow;
