@@ -212,19 +212,25 @@ public class Input extends javax.swing.JFrame {
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (returnVal == JFileChooser.APPROVE_OPTION && (AlgeoTubes.InterpolasiBicubicSpline == 1 || AlgeoTubes.InterpolasiPolinom == 1)) {
+            AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
             if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.0){
                 JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
                 double[][] tempmat = new double[AlgeoTubes.matriksinput.length-1][AlgeoTubes.matriksinput[0].length];
                 AlgeoTubes.x = AlgeoTubes.matriksinput[AlgeoTubes.matriksinput.length-1][0];
                 AlgeoTubes.y = AlgeoTubes.matriksinput[AlgeoTubes.matriksinput.length-1][1];
-                for (int i=0;i<AlgeoTubes.matriksinput.length;i++){
+                
+                for (int i=0;i<AlgeoTubes.matriksinput.length-1;i++){
                     for (int j=0;j<AlgeoTubes.matriksinput[0].length;j++){
                         tempmat[i][j] = AlgeoTubes.matriksinput[i][j];
                     }
                 }
-                AlgeoTubes.matriksinput = tempmat;
+                AlgeoTubes.matriksinput = new double[tempmat.length][tempmat[0].length];
+                for (int i=0;i<tempmat.length;i++){
+                    for (int j=0;j<tempmat[0].length;j++){
+                        AlgeoTubes.matriksinput[i][j] = tempmat[i][j];
+                    }
+                }
                 System.out.println(AlgeoTubes.x);
                 try {
                     afterInput(false, false, false);
@@ -233,7 +239,6 @@ public class Input extends javax.swing.JFrame {
                 }
             }
         } else if (returnVal == JFileChooser.APPROVE_OPTION && AlgeoTubes.ImplementasiInterpolasiBicubicSpline != 1) {
-            AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
             if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.0){
                 JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.1){
@@ -249,7 +254,6 @@ public class Input extends javax.swing.JFrame {
                 }
             }
         } else if (returnVal == JFileChooser.APPROVE_OPTION){
-            AlgeoTubes.pathfile = filename;
             AlgeoTubes.x = SpecialInput.getx();
             try {
                 afterInput(false, false, false);
