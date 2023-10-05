@@ -33,6 +33,7 @@ public class AlgeoTubes{
     static double x;
     static double y;
     static String pathfile;
+    static String hasil;
     
     static double[][] matriksinput;
     static String output;

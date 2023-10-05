@@ -231,6 +231,8 @@ public class Input extends javax.swing.JFrame {
             AlgeoTubes.matriksinput = TextToMatriks.readMatrixFromFile(filename);
             if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.0){
                 JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (AlgeoTubes.matriksinput[0][0] == 109105110103103117.1){
+                JOptionPane.showMessageDialog(null, "Matrix Input not true. Contact Ojan for help. Code error = 5", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 boolean square = AlgeoTubes.matriksinput.length == AlgeoTubes.matriksinput[0].length;
                 boolean under_3 = AlgeoTubes.matriksinput.length < 3 && AlgeoTubes.matriksinput[0].length < 3;
