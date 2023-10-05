@@ -7,6 +7,12 @@ package besokminggu.algeotubes;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.image.BufferedImage; //Used for make a bigger image
+import java.io.File; // used for input a file
+import java.io.FileWriter;
+import javax.imageio.ImageIO; //also for reading and writing images in JPEG or PNG
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -44,6 +50,11 @@ public class ImplementasiBicubicSpline extends javax.swing.JFrame {
         jLabel1.setText("Image Scaler");
 
         jButton1.setText("Download");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -82,6 +93,40 @@ public class ImplementasiBicubicSpline extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        // Create a file chooser
+        JFileChooser fileChooser = new JFileChooser();
+
+        // Create a file filter to restrict to image file extensions
+        FileNameExtensionFilter imageFilter = new FileNameExtensionFilter(
+            "Image Files", "jpg", "png");
+    
+        // Set the file filter on the file chooser
+        fileChooser.setFileFilter(imageFilter);
+
+        // Set the fileSelectionMode property of the JFileChooser object to FILES_ONLY.
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        // Call the showOpenDialog() method on the JFileChooser object.
+        int result = fileChooser.showOpenDialog(null);
+
+        // If the user selects a file, get the selected file path using the getSelectedFile() method.
+        if (result == JFileChooser.APPROVE_OPTION) {
+            String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+            if (!filePath.contains(".")) {
+                filePath += ".jpg";
+            }
+            try {
+                besokminggu.fungsialgeo.Implementasi_BicubicSpline.saveImage(filePath);
+                // Create a new FileWriter object with the selected file path as the constructor parameter.
+            } catch (IOException ex) {
+                Logger.getLogger(ImplementasiBicubicSpline.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
