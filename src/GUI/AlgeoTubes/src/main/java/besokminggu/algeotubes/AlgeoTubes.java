@@ -38,6 +38,9 @@ public class AlgeoTubes{
     static double[][] matriksinput;
     static String output;
     
+    public AlgeoTubes() {
+        new MainMenu().setVisible(true);
+    }
     public static void main(String[] args) {
         new MainMenu().setVisible(true);
     }

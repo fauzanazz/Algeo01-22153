@@ -286,6 +286,7 @@ public class Input extends javax.swing.JFrame {
             }
         } else if (returnVal == JFileChooser.APPROVE_OPTION){
             AlgeoTubes.x = SpecialInput.getx();
+            AlgeoTubes.pathfile = filename;
             try {
                 afterInput(false, false, false);
             } catch (IOException ex) {

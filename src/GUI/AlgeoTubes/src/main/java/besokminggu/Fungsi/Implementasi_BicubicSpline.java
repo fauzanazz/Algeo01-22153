@@ -48,17 +48,17 @@ public class Implementasi_BicubicSpline {
         BufferedImage originalImage = input_image(input_Path);
         double after_width = originalImage.getWidth() * scale;    
         double after_height = originalImage.getHeight() * scale;
-        BufferedImage Image = new BufferedImage((int) after_width, (int) after_height, BufferedImage.TYPE_INT_RGB); //Initiate the new Image.
+        after_Image = new BufferedImage((int) after_width, (int) after_height, BufferedImage.TYPE_INT_RGB); //Initiate the new Image.
         //Bicubic Spline Interpolation Calculation
         for(int x = 0; x < after_width;x++){
             for(int y = 0; y < after_height;y++){
                 double previous_x = x / (double) scale;
                 double previous_y = y / (double) scale; 
                 int InterpolatedResult = BicubicInterpolation(originalImage,previous_x, previous_y);
-                Image.setRGB(x, y, InterpolatedResult);
+                after_Image.setRGB(x, y, InterpolatedResult);
             }
         }
-        displayImage(Image); //To show image.
+        displayImage(after_Image); //To show image.
     }   
     public static double[][] matriksI(BufferedImage image, int current_x, int current_y) { // a Method to get the I matriks, y = D I, I is the value of current pixel position
         double[][] I_matrix = new double[16][1];

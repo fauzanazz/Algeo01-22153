@@ -8,7 +8,7 @@ import static besokminggu.algeotubes.InputMatriksKeyboard.doubleToStringMatrix;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.WindowEvent;
-import besokminggu.fungsialgeo.SPL;
+import besokminggu.Fungsi.SPL;
 
 /**
  *

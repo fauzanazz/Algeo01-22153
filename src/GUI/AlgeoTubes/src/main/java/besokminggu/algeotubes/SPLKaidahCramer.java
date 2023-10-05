@@ -19,7 +19,7 @@ public class SPLKaidahCramer extends javax.swing.JFrame {
      */
     public SPLKaidahCramer() {
         initComponents();
-        AlgeoTubes.hasil = String.valueOf(besokminggu.fungsialgeo.SPL.SPLCramer(AlgeoTubes.matriksinput));
+        AlgeoTubes.hasil = String.valueOf(besokminggu.Fungsi.SPL.SPLCramer(AlgeoTubes.matriksinput));
         jTextArea1.setText(AlgeoTubes.hasil);
     }
 

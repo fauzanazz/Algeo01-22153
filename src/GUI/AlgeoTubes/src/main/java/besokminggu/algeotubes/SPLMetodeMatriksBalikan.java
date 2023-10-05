@@ -20,7 +20,7 @@ public class SPLMetodeMatriksBalikan extends javax.swing.JFrame {
     public SPLMetodeMatriksBalikan() {
         initComponents();
         
-        AlgeoTubes.hasil = String.valueOf(besokminggu.fungsialgeo.SPL.SPL_From_Inverse(AlgeoTubes.matriksinput));
+        AlgeoTubes.hasil = String.valueOf(besokminggu.Fungsi.SPL.SPL_From_Inverse(AlgeoTubes.matriksinput));
         jTextArea1.setText(AlgeoTubes.hasil);
     }
 
